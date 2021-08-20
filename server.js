@@ -9,7 +9,7 @@ const app = express();
 
 // API ENDPOINT
 app.get("/api", (req, res) => {
-    res.json({ message: "Hello from Express!" });
+    res.json({ message: "JXT copyright 2021" });
   });
 
 
