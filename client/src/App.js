@@ -1,6 +1,7 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import React from "react";
 import './App.css';
+import SimpleExp from "../src/components/Experiments/1_inputSubmitName"
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -13,8 +14,9 @@ function App() {
 
   return (
     <div className="App">
+      <SimpleExp />
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <p>{ !data ? "Loading..." : data }</p>
       </header>
     </div>
