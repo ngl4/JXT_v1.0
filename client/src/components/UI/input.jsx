@@ -6,6 +6,7 @@ function Input(props) {
     onKeyPress={props.onKeyPress}
     name = {props.name}    
     type = {props.type} 
+    style = {props.style}
     placeholder = {props.placeholder} 
     value = {props.value}></input>
 }
