@@ -13,11 +13,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <p className="cpText">{ !data ? "Loading..." : data }</p>
       </header>
       <body>
       </body>
       <footer>
-        <p className="cpText">{ !data ? "Loading..." : data }</p>
+        
       </footer>
     </div>
   );
