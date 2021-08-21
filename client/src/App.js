@@ -18,7 +18,6 @@ function App() {
       <body>
       </body>
       <footer>
-        
       </footer>
     </div>
   );
