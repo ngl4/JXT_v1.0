@@ -1,18 +1,14 @@
 // server/index.js
-
+const path = require('path');
 const express = require("express");
+const app = express();
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-if(process.env.NODE_ENV === 'production'){
-  //set static folder
-  app.use(express.static('client/build'));
-}
-app.get('*',(req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-});
+const buildPath = path.join(__dirname, '..', 'build');
+app.use(express.static(buildPath));
 
 // API ENDPOINT
 app.get("/api", (req, res) => {
