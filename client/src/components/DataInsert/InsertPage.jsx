@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import Input from "../UI/input";
 import SubmitButton from "../UI/submitButton";
 
-function LocalSignUpForm() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+function InsertPage() {
 
     return (
         <div>
@@ -15,4 +13,4 @@ function LocalSignUpForm() {
     );
 }
 
-export default LocalSignUpForm;
+export default InsertPage;
