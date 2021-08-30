@@ -1,5 +1,6 @@
 import React from "react";
 import './App.css';
+import DummySignUpForm from "./components/Authentication/DummySignUpForm";
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -11,13 +12,15 @@ function App() {
   })
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p className="cpText">{ !data ? "Loading..." : data }</p>
+    <div className="container-fluid">
+      <header className="row m-5">
+        <h1 className="text-center">Welcome to JXT Job Track App</h1>
       </header>
-      <body>
+      <body className="row d-flex justify-content-center align-items-center">
+        <DummySignUpForm />
       </body>
       <footer>
+        <p className="cpText text-center mt-5">{ !data ? "Loading..." : data }</p>
       </footer>
     </div>
   );

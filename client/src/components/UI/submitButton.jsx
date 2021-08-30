@@ -5,6 +5,8 @@ function SubmitButton(props) {
     type={props.type} 
     name={props.name} 
     style={props.style}
+    className={props.className}
+    value = {props.value}
     onClick={props.onClick}>{props.text}</button>
 }
 
