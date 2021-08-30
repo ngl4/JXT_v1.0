@@ -7,8 +7,13 @@ function DummySignUpForm() {
     const [password, setPassword] = useState("");
 
     function handleChange(event) {
-        setUsername(event.target.value);
-        setPassword(event.target.value);
+        const {value, name} = event.target; 
+
+        if (name === "username"){
+            setUsername(value);
+        }else {
+            setPassword(value);
+        }  
     }
 
     function handleClick(event){
