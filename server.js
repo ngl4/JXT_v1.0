@@ -20,9 +20,17 @@ app.get("/api", (req, res) => {
   });
 
 // Test - post to the database 
-// app.post("/create", (req, res) => {
+app.post("/create", (req, res) => {
+  
+  console.log(req); 
+  // const userSchema = new mongoose.Schema ({
+  //   username: String, 
+  //   password: String
+  // }); 
 
-// });
+  // const User = mongoose.model('User', userSchema);
+
+});
 
 
 app.listen(PORT, () => {
