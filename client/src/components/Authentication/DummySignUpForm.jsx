@@ -19,7 +19,7 @@ function DummySignUpForm() {
     function handleClick(event){
         event.preventDefault();
         console.log("This is clicked!");
-        console.log(username, password);
+        console.log("username: " + username, "password: " + password);
     }
 
     return (
