@@ -49,7 +49,7 @@ function DummySignUpForm() {
                     />   
                     </div>
                 </div>
-                <div class="d-flex justify-content-center">
+                <div className="d-flex justify-content-center">
                     <SubmitButton
                         name = "submit"
                         type = "submit"
