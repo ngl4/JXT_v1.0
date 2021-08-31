@@ -24,7 +24,7 @@ function DummySignUpForm() {
 
     return (
         <div className = "d-flex flex-column justify-content-center">
-            {/* <form action="/create" method="POST"> */}
+            <form action="/create" method="POST">
                 <div className = "row mb-3 d-flex justify-content-center">
                     <label className="col-sm-2 col-form-label">Username</label>
                     <div className="col-sm-2">
@@ -49,16 +49,16 @@ function DummySignUpForm() {
                     />   
                     </div>
                 </div>
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center mt-3 mb-5">
                     <SubmitButton
                         name = "submit"
                         type = "submit"
-                        text = "Submit"
+                        text = "Sign In"
                         onClick = {handleClick}
                         className = "btn btn-primary"
                     />      
                 </div>        
-            {/* </form> */}
+            </form>
         </div>
     );
 }

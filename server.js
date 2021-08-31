@@ -19,6 +19,11 @@ app.get("/api", (req, res) => {
     res.json({ message: "JXT copyright 2021" });
   });
 
+// Test - post to the database 
+// app.post("/create", (req, res) => {
+
+// });
+
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
