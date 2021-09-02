@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3001;
 
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(require("body-parser").json());
 
 mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -21,8 +22,9 @@ app.get("/api", (req, res) => {
 
 // Test - post to the database 
 app.post("/create", (req, res) => {
-  
-  console.log(req); 
+  console.log("here");
+  console.log(req.body); 
+  res.json({message: "Saved to DB"});
   // const userSchema = new mongoose.Schema ({
   //   username: String, 
   //   password: String
