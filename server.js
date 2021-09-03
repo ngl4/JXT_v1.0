@@ -24,13 +24,22 @@ app.get("/api", (req, res) => {
 app.post("/create", (req, res) => {
   console.log("here");
   console.log(req.body); 
-  res.json({message: "Saved to DB"});
-  // const userSchema = new mongoose.Schema ({
-  //   username: String, 
-  //   password: String
-  // }); 
+ 
+  const userSchema = new mongoose.Schema ({
+    username: String, 
+    password: String
+  }); 
 
-  // const User = mongoose.model('User', userSchema);
+  const User = mongoose.model('User', userSchema);
+
+  const user = new User ({
+    username: req.body.username,
+    password: req.body.password
+  });
+  
+  user.save(); //TODO: Issue why is it not saving in the User folder, but inside Collections folder?? 
+
+  res.json({message: "Saved to DB"});
 
 });
 
