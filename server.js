@@ -26,36 +26,6 @@ app.get("/api", (req, res) => {
     res.json({ message: "JXT copyright 2021" });
   });
 
-// Test - SEND DATA TO DB - post to the database 
-app.post("/create", (req, res) => {
-  console.log("here");
-  console.log(req.body); 
-
-  const user = new User ({
-    username: req.body.username,
-    password: req.body.password
-  });
-  
-  user.save(); 
-
-  res.json({message: "Saved to DB"});
-
-});
-
-//Test - RETRIEVE DATA FROM DB - check if the user exist and then send info from backend storage to frontend display
-app.get("/users", (req, res) => {
-  //access the users model to retrieve information regarding All Users - username and password 
-  User.find({}, (err, foundAllUsers) => {
-    if (!err) {
-      res.send({
-        allUsers: foundAllUsers,
-        message: "success"
-      });
-    }else {
-      res.send(err); 
-    }
-  });
-});
 
 
 app.listen(PORT, () => {
