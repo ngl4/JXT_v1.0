@@ -2,15 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function Input({onChange, onKeyPress, 
-    name, type, style, placeholder, value}) {
+    name, id, type, style, placeholder, value, disabled}) {
     return <input 
     onChange = {onChange}
     onKeyPress={onKeyPress}
-    name = {name}    
+    name = {name} 
+    id = {id}   
     type = {type} 
     style = {style}
     placeholder = {placeholder} 
-    value = {value}></input>
+    value = {value}
+    disabled = {disabled}
+    ></input>
 }; 
 
 Input.propTypes = {
@@ -18,9 +21,11 @@ Input.propTypes = {
     onKeyPress: PropTypes.func,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    id: PropTypes.string,
     style: PropTypes.string,
     placeholder: PropTypes.string,
-    value: PropTypes.string.isRequired
+    value: PropTypes.string.isRequired,
+    disabled: PropTypes.bool
 }
 
 export default Input;
