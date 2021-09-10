@@ -23,9 +23,8 @@ app.get('/', (req, res) => {
 
 // API ENDPOINT
 app.get("/api", (req, res) => {
-    res.json({ message: "JXT copyright 2021" });
+    res.json({ message: "JXT 2021" });
   });
-
 
 
 app.listen(PORT, () => {
