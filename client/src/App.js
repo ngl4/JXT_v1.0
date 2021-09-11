@@ -51,7 +51,6 @@ function App() {
         </Switch>
         </div>
       </Router>
-        {/* <h1 className="text-center">Welcome to JXT Job Track App</h1> */}
       </header>
       <footer className="fixed-bottom">
         <p className="cpText text-center mt-5">{ !data ? "Loading..." : data }</p>
