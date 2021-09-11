@@ -12,8 +12,10 @@ function InsertPage() {
     const [phoneCallDate, setPhoneCallDate] = useState("");
     const [checkInterviewed, setCheckInterviewed] = useState(false);
     const [interviewDate, setInterviewDate] = useState("");
-    const [enabledValue, setEnabledValue] = useState("");  
+    const [status, setStatus] = useState("");  
     const [disable, setDisable] = useState(false);
+    const [checked, setChecked] = useState(false);
+    const [response, setResponse] = useState(""); 
 
     function handleChange(event) {
         const {value, name} = event.target; 
@@ -30,41 +32,49 @@ function InsertPage() {
                     setCheckNew(false);
                     //console.log("not checked");
                     setDisable(false);
+                    setChecked(false);
                 }else {
                     setCheckNew(true);
                     //console.log("checked");
-                    setEnabledValue(value);
+                    setStatus(value);
                     setDisable(true);
+                    setChecked(true);
                 }
             break;  
             case 'applied':
                 if (checkApplied) {
                     setCheckApplied(false);
                     setDisable(false);
+                    setChecked(false);
                 }else {
                     setCheckApplied(true);  
-                    setEnabledValue(value);
+                    setStatus(value);
                     setDisable(true);
+                    setChecked(true);
                 }
             break; 
             case 'phoneCalled':
                 if (checkPhoneCalled) {
                     setCheckPhoneCalled(false);
                     setDisable(false);
+                    setChecked(false);
                 }else {
                     setCheckPhoneCalled(true);  
-                    setEnabledValue(value);
+                    setStatus(value);
                     setDisable(true);
+                    setChecked(true);
                 }
             break; 
             case 'interviewed':
                 if (checkInterviewed) {
                     setCheckInterviewed(false);
                     setDisable(false);
+                    setChecked(false);
                 }else {
                     setCheckInterviewed(true);  
-                    setEnabledValue(value);
+                    setStatus(value);
                     setDisable(true);
+                    setChecked(true);
                 }
             break;                             
             case 'applyDate':
@@ -92,10 +102,34 @@ function InsertPage() {
                 'Content-Type': 'application/json',
               },    
               body: JSON.stringify({ 
-                  //name: name 
+                  companyName: companyName,
+                  jobURL: jobURL,
+                  status: status,
+                  applyDate: applyDate,
+                  appliedDate: appliedDate,
+                  phoneCallDate: phoneCallDate,
+                  interviewDate: interviewDate
               }) 
         }).then((res) => res.json())
-        .then((data) => console.log(data.message));               
+        .then((data) => {
+            // console.log(data.message);
+            setResponse(data.message);
+
+            //clear fields 
+            setCompanyName("");
+            setJobURL("");
+            setStatus("");
+            setApplyDate(""); 
+            setAppliedDate("");
+            setPhoneCallDate("");
+            setInterviewDate("");
+            setCheckNew(false);
+            setCheckApplied(false);
+            setCheckPhoneCalled(false);
+            setCheckInterviewed(false);
+            setDisable(false);  
+            setChecked(false);      
+        });   
     }
 
     return (
@@ -127,22 +161,22 @@ function InsertPage() {
                     />   
                     </div>
                 </div>
-                {/*Checkbox - New, Applied, Phone-Called, Interviewed */}
+                {/*Checkbox Status - New, Applied, Phone-Called, Interviewed */}
                 <div className = "column mt-4 mb-4 d-flex justify-content-center">
                     <div className="form-check form-check-inline">
-                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox1" name="new" value="new" onChange = {handleChange} disabled={enabledValue === "new" ? null : disable} />
+                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox1" name="new" value="new" onChange = {handleChange} disabled={status === "new" ? null : disable}  checked={checked}  />
                         <label className="form-check-label" for="inlineCheckbox1">New</label>
                     </div>
                     <div className="form-check form-check-inline">
-                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox2" name="applied" value="applied" onChange = {handleChange} disabled={enabledValue === "applied" ? null : disable} />
+                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox2" name="applied" value="applied" onChange = {handleChange} disabled={status === "applied" ? null : disable} checked={checked} />
                         <label className="form-check-label" for="inlineCheckbox2">Applied</label>
                     </div>
                     <div className="form-check form-check-inline">
-                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox3" name="phoneCalled" value="phoneCalled" onChange = {handleChange} disabled={enabledValue === "phoneCalled" ? null : disable} />
+                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox3" name="phoneCalled" value="phoneCalled" onChange = {handleChange} disabled={status === "phoneCalled" ? null : disable} checked={checked} />
                         <label className="form-check-label" for="inlineCheckbox3">Phone-Called</label>
                     </div>
                     <div className="form-check form-check-inline">
-                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox4" name="interviewed" value="interviewed" onChange = {handleChange} disabled={enabledValue === "interviewed" ? null : disable} />
+                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox4" name="interviewed" value="interviewed" onChange = {handleChange} disabled={status === "interviewed" ? null : disable} checked={checked} />
                         <label className="form-check-label" for="inlineCheckbox4">Interviewed</label>
                     </div>   
                 </div> 
@@ -208,6 +242,12 @@ function InsertPage() {
                             </div> 
                     : null}                    
                 </div>
+                {/* Response - if submit successfully or not */}
+                { response ? 
+                <div className="d-flex justify-content-center">
+                    <p className="text-success fw-normal fs-6">{response}</p>
+                </div> 
+                : null}
                 {/* Submit Button - Add Job to Database */}
                 <div className="d-flex justify-content-center mt-3 mb-5">
                     <Input

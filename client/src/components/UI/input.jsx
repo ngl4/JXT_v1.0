@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function Input({onChange, onKeyPress, 
-    name, id, type, style, placeholder, value, disabled}) {
+    name, id, type, style, placeholder, value, disabled, checked}) {
     return <input 
     onChange = {onChange}
     onKeyPress={onKeyPress}
@@ -13,6 +13,7 @@ function Input({onChange, onKeyPress,
     placeholder = {placeholder} 
     value = {value}
     disabled = {disabled}
+    checked = {checked} //only use for checkbox type 
     ></input>
 }; 
 
@@ -25,7 +26,8 @@ Input.propTypes = {
     style: PropTypes.string,
     placeholder: PropTypes.string,
     value: PropTypes.string.isRequired,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    checked: PropTypes.bool
 }
 
 export default Input;
