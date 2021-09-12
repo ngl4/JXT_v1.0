@@ -30,6 +30,7 @@ function InsertPage() {
                 if (checkNew) {
                     setCheckNew(false);
                     //console.log("not checked");
+                    setStatus("");
                     setDisable(false);
                 }else {
                     setCheckNew(true);
@@ -41,6 +42,7 @@ function InsertPage() {
             case 'applied':
                 if (checkApplied) {
                     setCheckApplied(false);
+                    setStatus("");
                     setDisable(false);
                 }else {
                     setCheckApplied(true);  
@@ -51,6 +53,7 @@ function InsertPage() {
             case 'phoneCalled':
                 if (checkPhoneCalled) {
                     setCheckPhoneCalled(false);
+                    setStatus("");
                     setDisable(false);
                 }else {
                     setCheckPhoneCalled(true);  
@@ -61,6 +64,7 @@ function InsertPage() {
             case 'interviewed':
                 if (checkInterviewed) {
                     setCheckInterviewed(false);
+                    setStatus("");
                     setDisable(false);
                 }else {
                     setCheckInterviewed(true);  
@@ -87,24 +91,49 @@ function InsertPage() {
 
     function handleSubmit(event){
         event.preventDefault();  
+        if (companyName === "" || jobURL === "" || status === "") {
+            setResponse({
+                verbiage: "Missing field(s): please make sure all fields are filled out! Thanks!",
+                textColor: "text-danger"
+            });
+        }else if (status) {
+            console.log(status);
+            console.log(applyDate, appliedDate, phoneCallDate, interviewDate);
+            if (applyDate === "" && appliedDate === "" && phoneCallDate === "" && interviewDate === "") {
+                setResponse({
+                    verbiage: "Missing field: please make sure the Date is filled out! Thanks!",
+                    textColor: "text-danger"
+                });                    
+            }else {
+                saveToDB(); 
+            }
+        }else {
+            saveToDB();   
+        }
+    }
+
+    const saveToDB = () => {
         fetch ("/create", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-              },    
-              body: JSON.stringify({ 
-                  companyName: companyName,
-                  jobURL: jobURL,
-                  status: status,
-                  applyDate: applyDate,
-                  appliedDate: appliedDate,
-                  phoneCallDate: phoneCallDate,
-                  interviewDate: interviewDate
-              }) 
+            },    
+            body: JSON.stringify({ 
+                companyName: companyName,
+                jobURL: jobURL,
+                status: status,
+                applyDate: applyDate,
+                appliedDate: appliedDate,
+                phoneCallDate: phoneCallDate,
+                interviewDate: interviewDate
+            }) 
         }).then((res) => res.json())
         .then((data) => {
             // console.log(data.message);
-            setResponse(data.message);
+            setResponse({
+                 verbiage: data.message,
+                 textColor: "text-success"
+                });
 
             //clear fields 
             setCompanyName("");
@@ -118,8 +147,8 @@ function InsertPage() {
             setCheckApplied(false);
             setCheckPhoneCalled(false);
             setCheckInterviewed(false);
-            setDisable(false);       
-        });   
+            setDisable(false); 
+        });        
     }
 
     return (
@@ -235,7 +264,7 @@ function InsertPage() {
                 {/* Response - if submit successfully or not */}
                 { response ? 
                 <div className="d-flex justify-content-center">
-                    <p className="text-success fw-normal fs-6">{response}</p>
+                    <p className={response.textColor + " fw-normal fs-6"}>{response.verbiage}</p>
                 </div> 
                 : null}
                 {/* Submit Button - Add Job to Database */}
