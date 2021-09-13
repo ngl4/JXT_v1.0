@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3001;
+const uri = process.env.MONGODB_URI; //heroku config variable
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(require("body-parser").json());
@@ -12,7 +13,7 @@ app.use(require("body-parser").json());
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
 //LIVE AWS CLOUD STORAGE - mongoosh + mongoAtlas 
-mongoose.connect(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jxtrackDB`, {useNewUrlParser: true, useUnifiedTopology: true}); 
+mongoose.connect(`mongodb+srv://admin-cindy:${uri}@clustertestjxt.wthnh.mongodb.net/jxtrackDB`, {useNewUrlParser: true, useUnifiedTopology: true}); 
 
 // LOCAL STORAGE
 //mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true}) 
