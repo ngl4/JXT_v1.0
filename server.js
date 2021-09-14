@@ -13,10 +13,10 @@ app.use(require("body-parser").json());
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
 //LIVE AWS CLOUD STORAGE - mongoosh + mongoAtlas 
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
+// mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
 
 // LOCAL STORAGE
-//mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true}) 
+mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true}) 
 
 const jobAppSchema = new mongoose.Schema ({
   companyName: String,
@@ -55,6 +55,19 @@ app.post("/create", (req, res) => {
   jobApp.save();
 
   res.json({message: "Successfully Saved To Your Job Track World!"});
+});
+
+//GET - FindAll - Total Inserted Job Apps 
+app.get("/findAll", (req, res) => {
+  JobApp.find((err, foundAllJobs) => {
+    if (err) {
+      res.send(err);
+    }else {
+      res.json({
+        foundAllJobs: foundAllJobs
+      });
+    }
+  });
 });
 
 app.listen(PORT, () => {
