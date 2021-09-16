@@ -70,6 +70,55 @@ app.get("/findAll", (req, res) => {
   });
 });
 
+//Get - Find - Specific Status Job Apps
+app.get("/findAll/status/new", (req, res) => {
+  JobApp.find({status: "new"},(err, foundNewJobs) => {
+    if (err) {
+      res.send(err);
+    }else {
+      res.json({
+        foundNewJobs: foundNewJobs
+      });
+    }
+  });
+});
+
+app.get("/findAll/status/applied", (req, res) => {
+  JobApp.find({status: "applied"},(err, foundAppliedJobs) => {
+    if (err) {
+      res.send(err);
+    }else {
+      res.json({
+        foundAppliedJobs: foundAppliedJobs
+      });
+    }
+  });
+});
+
+app.get("/findAll/status/phoneCalled", (req, res) => {
+  JobApp.find({status: "phoneCalled"},(err, foundPhoneCalledJobs) => {
+    if (err) {
+      res.send(err);
+    }else {
+      res.json({
+        foundPhoneCalledJobs: foundPhoneCalledJobs
+      });
+    }
+  });
+});
+
+app.get("/findAll/status/interviewed", (req, res) => {
+  JobApp.find({status: "interviewed"},(err, foundInterviewedJobs) => {
+    if (err) {
+      res.send(err);
+    }else {
+      res.json({
+        foundInterviewedJobs: foundInterviewedJobs
+      });
+    }
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
