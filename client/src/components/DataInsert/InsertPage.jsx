@@ -97,8 +97,8 @@ function InsertPage() {
                 textColor: "text-danger"
             });
         }else if (status) {
-            console.log(status);
-            console.log(applyDate, appliedDate, phoneCallDate, interviewDate);
+            // console.log(status);
+            // console.log(applyDate, appliedDate, phoneCallDate, interviewDate);
             if (applyDate === "" && appliedDate === "" && phoneCallDate === "" && interviewDate === "") {
                 setResponse({
                     verbiage: "Missing field: please make sure the Date is filled out! Thanks!",

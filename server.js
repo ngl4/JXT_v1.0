@@ -82,7 +82,6 @@ app.get("/findAll/status/new", (req, res) => {
     }
   });
 });
-
 app.get("/findAll/status/applied", (req, res) => {
   JobApp.find({status: "applied"},(err, foundAppliedJobs) => {
     if (err) {
@@ -94,7 +93,6 @@ app.get("/findAll/status/applied", (req, res) => {
     }
   });
 });
-
 app.get("/findAll/status/phoneCalled", (req, res) => {
   JobApp.find({status: "phoneCalled"},(err, foundPhoneCalledJobs) => {
     if (err) {
@@ -106,7 +104,6 @@ app.get("/findAll/status/phoneCalled", (req, res) => {
     }
   });
 });
-
 app.get("/findAll/status/interviewed", (req, res) => {
   JobApp.find({status: "interviewed"},(err, foundInterviewedJobs) => {
     if (err) {

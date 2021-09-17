@@ -1,7 +1,6 @@
 import React from "react";
 
 function TrackPage() {
-    //TODO: fetch GET information (find all, find those with a specific status)
     const [totalJobs, setTotalJobs] = React.useState(0);
     const [newJobs, setNewJobs] = React.useState(0);
     const [appliedJobs, setAppliedJobs] = React.useState(0);
@@ -36,13 +35,17 @@ function TrackPage() {
     });
 
     return (
-        <div className="text-center">
-            <br />
-            <p>Total Jobs (All): {totalJobs ? totalJobs : "0"}</p>
-            <p>New: {newJobs ? newJobs : "0"}</p>   
-            <p>Applied: {appliedJobs ? appliedJobs : "0"}</p>  
-            <p>Phone Calls: {phoneCalledJobs ? phoneCalledJobs : "0"}</p>  
-            <p>Interviews: {interviewedJobs ? interviewedJobs : "0"}</p>   
+        <div className="container">
+             <div className="row d-flex justify-content-center">
+                <div className="col-2 text-center">Total Jobs <br/><p>{totalJobs ? totalJobs : "0"}</p></div>
+                <div className="col-2 text-center">New <br/><p>{newJobs ? newJobs : "0"}</p></div>   
+                <div className="col-2 text-center">Applied <br/><p>{appliedJobs ? appliedJobs : "0"}</p></div>  
+                <div className="col-2 text-center">Phone Calls <br/><p>{phoneCalledJobs ? phoneCalledJobs : "0"}</p></div>  
+                <div className="col-2 text-center">Interviews <br/><p>{interviewedJobs ? interviewedJobs : "0"}</p></div>   
+            </div>    
+            <div className="row d-flex justify-content-center">
+                {/* JobBar -- TODO: using map() method to display all jobs */}
+            </div>      
         </div>
     );
 };
