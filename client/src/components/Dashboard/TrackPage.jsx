@@ -46,8 +46,20 @@ function TrackPage() {
             </div>    
             <div className="row d-flex justify-content-center">
                 {/* JobBar -- TODO: using map() method to display all jobs */}
-                <JobCard />
-                <JobCard />
+                <div className="col">
+
+                </div>
+                <div className="col">
+                    <JobCard 
+                        companyName="Facebook" 
+                        jobURL = "https://www.facebook.com/careers/v2/jobs/2948019165525651/" 
+                        currentStatus = "New"
+                        currentStatusSetDate = "09/18/21"
+                        />                    
+                </div>
+                <div className="col">
+                
+                </div>
             </div>      
         </div>
     );

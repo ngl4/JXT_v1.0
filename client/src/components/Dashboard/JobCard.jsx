@@ -1,14 +1,15 @@
 import {React, useState} from "react";
+import Input from "../UI/input";
+import PopUp from "./PopUp"; 
 
-function JobCard() {
-    //TODO: Each Job Card Component for each Job item
+function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, newStatus, newStatusSetDate}) {
     const cardWidthMargin = {
-        "max-width": "60rem",
-        "margin-left": "20rem",
-        "margin-right": "20rem"
+        "width": "800px",
+        "margin-left": "3rem",
+        "margin-right": "3rem"
       };
     const [levelOfImpColor, setLevelOfImpColor] = useState(""); 
-    const [levelOfImpText, setLevelOfImpText] = useState(""); 
+    // const [levelOfImpText, setLevelOfImpText] = useState(""); 
 
     const handleChange = (event) => {
         event.preventDefault();  
@@ -23,8 +24,7 @@ function JobCard() {
         }else {
             setLevelOfImpColor("btn-success");
         }
-
-        setLevelOfImpText(value);
+        // setLevelOfImpText(value);
     }
 
     return (
@@ -32,28 +32,48 @@ function JobCard() {
             <div className="card border-success mb-3" style={cardWidthMargin}>
                 <div className="card-body text-success">
                     <div className="d-flex justify-content-between">
-                        <h5 className="card-title">Success card title</h5>
-                        {/* <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option className="dropdown-item" value="1" onChange={handleChange}>One</option>
-                            <option className="dropdown-item" value="2" onChange={handleChange}>Two</option>
-                            <option className="dropdown-item" value="3" onChange={handleChange}>Three</option>
-                        </select> */}
+                        <h5 className="card-title">{companyName}</h5>
                         <div className="btn-group">
-                        <button type="button" className={"btn " + levelOfImpColor}>{levelOfImpText ? levelOfImpText : "Level of Importance"}</button>
-                        <button type="button" className={"btn dropdown-toggle dropdown-toggle-split " + levelOfImpColor} data-bs-toggle="dropdown" aria-expanded="false">
-                            <span className="visually-hidden">Toggle Dropdown</span>
-                        </button>
-                        <ul className="dropdown-menu ">
-                            <li><button type="button" className="dropdown-item" name="High" value="High" onClick={handleChange}>High</button></li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li><button type="button" className="dropdown-item" name="Normal" value="Normal" onClick={handleChange}>Normal</button></li>
-                        </ul>
+                            <select className={"form-select btn " + (levelOfImpColor ? levelOfImpColor : "btn-success")} aria-label="Default select example" onChange={handleChange}>
+                                <option selected>Level of Importance</option>
+                                <option className="dropdown-item" value="High">High</option>
+                                <option className="dropdown-item" value="Normal">Normal</option>
+                            </select>
                         </div>
                     </div>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. kdsfnladnsf asdfoaisdf asdfianisdnf asdjfoiansidf</p>
+                    <div className="card-text">
+                        <a href={jobURL} target="_blank" rel="noopener noreferrer">{jobURL ? "Job Site Here" : null}</a>
+                        <br />
+                        <br />
+                        <p>{currentStatus} <span className="text-black-50 fw-light font-monospace">- completed by {currentStatusSetDate}</span></p>
+                    </div>
                 </div>
-                <div className="card-footer bg-transparent border-success">Footer</div>
+                <div className="card-footer bg-transparent border-success m-0 p-1">
+                    <div className="container">
+                        <div className="d-flex row justify-content-between">
+                            <div className="col-9">
+                                <div className="row g-3">
+                                    <div className="col-sm-3">
+                                        <input type="text" className="form-control" placeholder="New Status" aria-label="New Status" />
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <input type="date" className="form-control" placeholder="Schedule Date" aria-label="Schedule Date" />
+                                    </div>
+                                    <div className="col-sm">
+                                        <Input
+                                            className="btn btn-outline-secondary border-0"
+                                            type = "submit"
+                                            value = "Update Status" 
+                                        />       
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-3 d-flex flex-row-reverse">
+                                <button className="btn">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
