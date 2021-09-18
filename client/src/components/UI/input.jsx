@@ -1,9 +1,10 @@
 import React from "react"; 
 import PropTypes from "prop-types";
 
-function Input({onChange, onKeyPress, 
+function Input({className, onChange, onKeyPress, 
     name, id, type, style, placeholder, value, disabled, checked}) {
     return <input 
+    className = {className}
     onChange = {onChange}
     onKeyPress={onKeyPress}
     name = {name} 

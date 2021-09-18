@@ -154,21 +154,34 @@ function InsertPage() {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-            {/* Input Company Name */}
-            <div className = "row mb-3 d-flex justify-content-center">
-                    <label className="col-sm-2 col-form-label">Company Name</label>
-                    <div className="col-sm-2">
+                {/* Input Company Name */}
+                <div className = "row mb-3 d-flex justify-content-center">
+                    <label className="col-6 col-form-label text-end">Company Name & Job Role</label>
+                    <div className="col-6">
                         <Input 
                             name = "companyName"
                             type = "text" 
                             onChange = {handleChange}
-                            placeholder = "Enter Company Name"
+                            placeholder = "Enter Name , Role"
                             value = {companyName}
                         /> 
                     </div>
                 </div>
                 {/* Input Job Post URL */}
                 <div className = "row mb-3 d-flex justify-content-center">
+                    <label className="col-6 col-form-label text-end">Job Post URL</label>
+                    <div className="col-6">
+                    <Input 
+                        name = "jobURL"
+                        type = "url"
+                        onChange = {handleChange}
+                        placeholder = "Enter URL"
+                        value = {jobURL}
+                    />   
+                    </div>
+                </div>
+                {/* Input Job Title */}
+                {/* <div className = "row mb-3 d-flex justify-content-center">
                     <label className="col-sm-2 col-form-label">Job Post URL</label>
                     <div className="col-sm-2">
                     <Input 
@@ -179,7 +192,7 @@ function InsertPage() {
                         value = {jobURL}
                     />   
                     </div>
-                </div>
+                </div>                 */}
                 {/*Checkbox Status - New, Applied, Phone-Called, Interviewed */}
                 <div className = "column mt-4 mb-4 d-flex justify-content-center">
                     <div className="form-check form-check-inline">
