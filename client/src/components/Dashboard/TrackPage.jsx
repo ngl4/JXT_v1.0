@@ -1,4 +1,5 @@
 import React from "react";
+import JobCard from "./JobCard";
 
 function TrackPage() {
     const [totalJobs, setTotalJobs] = React.useState(0);
@@ -36,7 +37,7 @@ function TrackPage() {
 
     return (
         <div className="container">
-             <div className="row d-flex justify-content-center">
+             <div className="row d-flex justify-content-center mb-5 mt-4">
                 <div className="col-2 text-center">Total Jobs <br/><p>{totalJobs ? totalJobs : "0"}</p></div>
                 <div className="col-2 text-center">New <br/><p>{newJobs ? newJobs : "0"}</p></div>   
                 <div className="col-2 text-center">Applied <br/><p>{appliedJobs ? appliedJobs : "0"}</p></div>  
@@ -45,6 +46,8 @@ function TrackPage() {
             </div>    
             <div className="row d-flex justify-content-center">
                 {/* JobBar -- TODO: using map() method to display all jobs */}
+                <JobCard />
+                <JobCard />
             </div>      
         </div>
     );

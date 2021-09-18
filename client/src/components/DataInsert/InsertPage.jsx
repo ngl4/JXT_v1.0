@@ -18,7 +18,7 @@ function InsertPage() {
 
     function handleChange(event) {
         const {value, name} = event.target; 
-        
+
         switch (name){
             case 'companyName':
                 setCompanyName(value);
