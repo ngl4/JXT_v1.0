@@ -1,5 +1,6 @@
 import {React, useState} from "react";
 import Input from "../UI/input";
+import Modal from "react-bootstrap/Modal";
 import PopUp from "./PopUp"; 
 
 function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, currentStatusVerbiage, newStatus, newStatusSetDate}) {
@@ -9,8 +10,8 @@ function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, curr
         "margin-right": "3rem"
       };
     const [levelOfImpColor, setLevelOfImpColor] = useState(""); 
-    // const [levelOfImpText, setLevelOfImpText] = useState(""); 
-
+    // const [levelOfImpText, setLevelOfImpText] = useState("");    
+    
     const handleChange = (event) => {
         event.preventDefault();  
         const value = event.target.value; 
@@ -26,6 +27,18 @@ function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, curr
         }
         // setLevelOfImpText(value);
     }
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const showModal = (event) => {
+        event.preventDefault();
+        console.log("click!");
+        setIsOpen(true);
+    };
+  
+    const hideModal = () => {
+      setIsOpen(false);
+    };
 
     return (
         <div className="d-flex justify-content-left">
@@ -65,7 +78,7 @@ function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, curr
                                         </select>
                                     </div>  
                                     <div className="col-sm-3">
-                                        <input type="date" className="form-control" placeholder="Schedule Date" aria-label="Schedule Date" />
+                                        <input type="date" className="form-control" placeholder="Date" aria-label="Date" />
                                     </div>
                                     <div className="col-sm">
                                         <Input
@@ -77,7 +90,23 @@ function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, curr
                                 </div>
                             </div>
                             <div className="col-2 d-flex flex-row-reverse">
-                                <button className="btn">Details</button>
+                                <button className="btn" onClick={showModal}>Details</button>
+                                <Modal show={isOpen} size="xl" onHide={hideModal} scrollable="true" centered>
+                                    <Modal.Header>
+                                        <Modal.Title>{companyName}</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>        
+                                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                                        dcvntras mssdattis ertgconsectetur drcvbpurus sitwef aw3famet fermentumdrtf. Qefxras justo eeodio,
+                                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+                                        consectetur ac, vestibulum at eros.
+                                        </p>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <button onClick={hideModal}>Cancel</button>
+                                        <button>Save</button>
+                                    </Modal.Footer>
+                                </Modal>
                             </div>
                         </div>
                     </div>
