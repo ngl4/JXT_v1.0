@@ -203,19 +203,19 @@ function InsertPage() {
                 {/*Checkbox Status - New, Applied, Phone-Called, Interviewed */}
                 <div className = "column mt-4 mb-4 d-flex justify-content-center">
                     <div className="form-check form-check-inline">
-                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox1" name="new" value="new" onChange = {handleChange} disabled={status === "new" ? null : disable}  checked={checkNew ? true : false}  />
+                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox1" name="new" value="New" onChange = {handleChange} disabled={status === "New" ? null : disable}  checked={checkNew ? true : false}  />
                         <label className="form-check-label" for="inlineCheckbox1">New</label>
                     </div>
                     <div className="form-check form-check-inline">
-                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox2" name="applied" value="applied" onChange = {handleChange} disabled={status === "applied" ? null : disable} checked={checkApplied ? true : false}  />
+                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox2" name="applied" value="Applied" onChange = {handleChange} disabled={status === "Applied" ? null : disable} checked={checkApplied ? true : false}  />
                         <label className="form-check-label" for="inlineCheckbox2">Applied</label>
                     </div>
                     <div className="form-check form-check-inline">
-                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox3" name="phoneCalled" value="phoneCalled" onChange = {handleChange} disabled={status === "phoneCalled" ? null : disable} checked={checkPhoneCalled ? true : false}  />
+                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox3" name="phoneCalled" value="Phone Call" onChange = {handleChange} disabled={status === "Phone Call" ? null : disable} checked={checkPhoneCalled ? true : false}  />
                         <label className="form-check-label" for="inlineCheckbox3">Phone-Called</label>
                     </div>
                     <div className="form-check form-check-inline">
-                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox4" name="interviewed" value="interviewed" onChange = {handleChange} disabled={status === "interviewed" ? null : disable} checked={checkInterviewed ? true : false}  />
+                        <Input className="form-check-input" type="checkbox" id="inlineCheckbox4" name="interviewed" value="Interview" onChange = {handleChange} disabled={status === "Interview" ? null : disable} checked={checkInterviewed ? true : false}  />
                         <label className="form-check-label" for="inlineCheckbox4">Interviewed</label>
                     </div>   
                 </div> 
