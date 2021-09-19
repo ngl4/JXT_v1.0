@@ -22,6 +22,7 @@ const jobAppSchema = new mongoose.Schema ({
   companyName: String,
   jobURL: String,
   status: String,
+  statusVerbiage: String,
   applyDate: String,
   appliedDate: String,
   phoneCallDate: String,
