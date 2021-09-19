@@ -13,6 +13,7 @@ function InsertPage() {
     const [checkInterviewed, setCheckInterviewed] = useState(false);
     const [interviewDate, setInterviewDate] = useState("");
     const [status, setStatus] = useState("");  
+    const [statusVerbiage, setStatusVerbiage] = useState("");  
     const [disable, setDisable] = useState(false);
     const [response, setResponse] = useState(""); 
 
@@ -36,6 +37,7 @@ function InsertPage() {
                     setCheckNew(true);
                     //console.log("checked");
                     setStatus(value);
+                    setStatusVerbiage("Date to Apply");
                     setDisable(true);
                 }
             break;  
@@ -47,6 +49,7 @@ function InsertPage() {
                 }else {
                     setCheckApplied(true);  
                     setStatus(value);
+                    setStatusVerbiage("Applied Date");
                     setDisable(true);
                 }
             break; 
@@ -58,6 +61,7 @@ function InsertPage() {
                 }else {
                     setCheckPhoneCalled(true);  
                     setStatus(value);
+                    setStatusVerbiage("Phone Call Date");
                     setDisable(true);
                 }
             break; 
@@ -69,6 +73,7 @@ function InsertPage() {
                 }else {
                     setCheckInterviewed(true);  
                     setStatus(value);
+                    setStatusVerbiage("Interview Date");
                     setDisable(true);
                 }
             break;                             
@@ -122,6 +127,7 @@ function InsertPage() {
                 companyName: companyName,
                 jobURL: jobURL,
                 status: status,
+                statusVerbiage: statusVerbiage,
                 applyDate: applyDate,
                 appliedDate: appliedDate,
                 phoneCallDate: phoneCallDate,
@@ -139,6 +145,7 @@ function InsertPage() {
             setCompanyName("");
             setJobURL("");
             setStatus("");
+            setStatusVerbiage("");
             setApplyDate(""); 
             setAppliedDate("");
             setPhoneCallDate("");
@@ -216,7 +223,7 @@ function InsertPage() {
                 {/* Checkbox Specific - New */}
                     {checkNew ?                 
                     <div className = "row mb-3 d-flex justify-content-center">
-                        <label className="col-sm-5 col-form-label">Date to Apply:</label>
+                        <label className="col-sm-5 col-form-label">{statusVerbiage}:</label>
                         <div className="col-sm-5">
                             <Input 
                                 name = "applyDate"
@@ -231,7 +238,7 @@ function InsertPage() {
                 {/* Checkbox Specific - Applied */}
                     {checkApplied ?                 
                         <div className = "row mb-3 d-flex justify-content-center">
-                            <label className="col-sm-5 col-form-label">Applied Date:</label>
+                            <label className="col-sm-5 col-form-label">{statusVerbiage}:</label>
                             <div className="col-sm-5">
                                 <Input 
                                     name = "appliedDate"
@@ -246,7 +253,7 @@ function InsertPage() {
                 {/* Checkbox Specific - Phone Called */}
                     {checkPhoneCalled ?                 
                             <div className = "row mb-3 d-flex justify-content-center">
-                                <label className="col-sm-6 col-form-label">Phone Call(ed) Date:</label>
+                                <label className="col-sm-6 col-form-label">{statusVerbiage}:</label>
                                 <div className="col-sm-6">
                                     <Input 
                                         name = "phoneCallDate"
@@ -261,7 +268,7 @@ function InsertPage() {
                 {/* Checkbox Specific - Interviewed */}    
                     {checkInterviewed ?                 
                             <div className = "row mb-3 d-flex justify-content-center">
-                                <label className="col-sm-6 col-form-label">Interview(ed) Date:</label>
+                                <label className="col-sm-6 col-form-label">{statusVerbiage}:</label>
                                 <div className="col-sm-6">
                                     <Input 
                                         name = "interviewDate"

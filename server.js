@@ -46,6 +46,7 @@ app.post("/create", (req, res) => {
     companyName: req.body.companyName,
     jobURL: req.body.jobURL,
     status: req.body.status,
+    statusVerbiage: req.body.statusVerbiage,
     applyDate: req.body.applyDate,
     appliedDate: req.body.appliedDate,
     phoneCallDate: req.body.phoneCallDate,
@@ -70,7 +71,7 @@ app.get("/findAll", (req, res) => {
   });
 });
 
-//Get - Find - Specific Status Job Apps
+//Get - Find - Specific Status Job Apps 
 app.get("/findAll/status/new", (req, res) => {
   JobApp.find({status: "new"},(err, foundNewJobs) => {
     if (err) {

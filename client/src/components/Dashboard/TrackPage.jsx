@@ -47,7 +47,6 @@ function TrackPage() {
             <div className="row d-flex justify-content-center">
                 {/* JobBar -- TODO: using map() method to display all jobs */}
                 <div className="col">
-
                 </div>
                 <div className="col">
                     <JobCard 
