@@ -76,11 +76,7 @@ function TrackPage() {
                             jobURL = {job.jobURL}
                             currentStatus = {job.status}
                             currentStatusVerbiage = {job.statusVerbiage}
-                            currentStatusSetDate = {
-                                job.applyDate ? job.applyDate : 
-                                job.appliedDate ? job.appliedDate : 
-                                job.phoneCallDate ? job.phoneCallDate : 
-                                job.interviewDate ? job.interviewDate : null}
+                            currentStatusSetDate = {job.statusDate}
                         />
                     ))}
                 </div>

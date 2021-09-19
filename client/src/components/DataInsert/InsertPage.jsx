@@ -5,15 +5,12 @@ function InsertPage() {
     const [companyName, setCompanyName] = useState("");
     const [jobURL, setJobURL] = useState("");
     const [checkNew, setCheckNew] = useState(false);
-    const [applyDate, setApplyDate] = useState("");
     const [checkApplied, setCheckApplied] = useState(false);
-    const [appliedDate, setAppliedDate] = useState("");
     const [checkPhoneCalled, setCheckPhoneCalled] = useState(false);
-    const [phoneCallDate, setPhoneCallDate] = useState("");
     const [checkInterviewed, setCheckInterviewed] = useState(false);
-    const [interviewDate, setInterviewDate] = useState("");
     const [status, setStatus] = useState("");  
     const [statusVerbiage, setStatusVerbiage] = useState("");  
+    const [statusDate, setStatusDate] = useState("");
     const [disable, setDisable] = useState(false);
     const [response, setResponse] = useState(""); 
 
@@ -76,19 +73,13 @@ function InsertPage() {
                     setStatusVerbiage("Interview Date");
                     setDisable(true);
                 }
-            break;                             
-            case 'applyDate':
-                setApplyDate(value);
-            break;  
-            case 'appliedDate':
-                setAppliedDate(value);
             break; 
-            case 'phoneCallDate':
-                setPhoneCallDate(value);
-            break;      
+            case 'applyDate' :
+            case 'appliedDate': 
+            case 'phoneCallDate': 
             case 'interviewDate':
-                setInterviewDate(value);
-            break;                                   
+                setStatusDate(value);
+            break;                                                                    
             default:
                 console.log("Unidentified input field found in the insertPage form");
         }
@@ -102,9 +93,7 @@ function InsertPage() {
                 textColor: "text-danger"
             });
         }else if (status) {
-            // console.log(status);
-            // console.log(applyDate, appliedDate, phoneCallDate, interviewDate);
-            if (applyDate === "" && appliedDate === "" && phoneCallDate === "" && interviewDate === "") {
+            if (statusDate === "") {
                 setResponse({
                     verbiage: "Missing field: please make sure the Date is filled out! Thanks!",
                     textColor: "text-danger"
@@ -128,10 +117,7 @@ function InsertPage() {
                 jobURL: jobURL,
                 status: status,
                 statusVerbiage: statusVerbiage,
-                applyDate: applyDate,
-                appliedDate: appliedDate,
-                phoneCallDate: phoneCallDate,
-                interviewDate: interviewDate
+                statusDate: statusDate
             }) 
         }).then((res) => res.json())
         .then((data) => {
@@ -146,10 +132,7 @@ function InsertPage() {
             setJobURL("");
             setStatus("");
             setStatusVerbiage("");
-            setApplyDate(""); 
-            setAppliedDate("");
-            setPhoneCallDate("");
-            setInterviewDate("");
+            setStatusDate("");
             setCheckNew(false);
             setCheckApplied(false);
             setCheckPhoneCalled(false);
@@ -230,7 +213,7 @@ function InsertPage() {
                                 type = "date"
                                 onChange = {handleChange}
                                 placeholder = "Enter Date"
-                                value = {applyDate}
+                                value = {statusDate}
                             />   
                         </div>
                     </div> 
@@ -245,7 +228,7 @@ function InsertPage() {
                                     type = "date"
                                     onChange = {handleChange}
                                     placeholder = "Enter Date"
-                                    value = {appliedDate}
+                                    value = {statusDate}
                                 />   
                             </div>
                         </div> 
@@ -260,7 +243,7 @@ function InsertPage() {
                                         type = "date"
                                         onChange = {handleChange}
                                         placeholder = "Enter Date"
-                                        value = {phoneCallDate}
+                                        value = {statusDate}
                                     />   
                                 </div>
                             </div> 
@@ -275,7 +258,7 @@ function InsertPage() {
                                         type = "date"
                                         onChange = {handleChange}
                                         placeholder = "Enter Date"
-                                        value = {interviewDate}
+                                        value = {statusDate}
                                     />   
                                 </div>
                             </div> 

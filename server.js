@@ -23,10 +23,8 @@ const jobAppSchema = new mongoose.Schema ({
   jobURL: String,
   status: String,
   statusVerbiage: String,
-  applyDate: String,
-  appliedDate: String,
-  phoneCallDate: String,
-  interviewDate: String
+  statusDate: String,
+  levelOfImp: String,
 }); 
 
 const JobApp = mongoose.model('JobApp', jobAppSchema);
@@ -48,10 +46,7 @@ app.post("/create", (req, res) => {
     jobURL: req.body.jobURL,
     status: req.body.status,
     statusVerbiage: req.body.statusVerbiage,
-    applyDate: req.body.applyDate,
-    appliedDate: req.body.appliedDate,
-    phoneCallDate: req.body.phoneCallDate,
-    interviewDate: req.body.interviewDate   
+    statusDate: req.body.statusDate  
   });
 
   jobApp.save();
@@ -74,7 +69,7 @@ app.get("/findAll", (req, res) => {
 
 //Get - Find - Specific Status Job Apps 
 app.get("/findAll/status/new", (req, res) => {
-  JobApp.find({status: "new"},(err, foundNewJobs) => {
+  JobApp.find({status: "New"},(err, foundNewJobs) => {
     if (err) {
       res.send(err);
     }else {
@@ -85,7 +80,7 @@ app.get("/findAll/status/new", (req, res) => {
   });
 });
 app.get("/findAll/status/applied", (req, res) => {
-  JobApp.find({status: "applied"},(err, foundAppliedJobs) => {
+  JobApp.find({status: "Applied"},(err, foundAppliedJobs) => {
     if (err) {
       res.send(err);
     }else {
@@ -96,7 +91,7 @@ app.get("/findAll/status/applied", (req, res) => {
   });
 });
 app.get("/findAll/status/phoneCalled", (req, res) => {
-  JobApp.find({status: "phoneCalled"},(err, foundPhoneCalledJobs) => {
+  JobApp.find({status: "Phone Call"},(err, foundPhoneCalledJobs) => {
     if (err) {
       res.send(err);
     }else {
@@ -107,7 +102,7 @@ app.get("/findAll/status/phoneCalled", (req, res) => {
   });
 });
 app.get("/findAll/status/interviewed", (req, res) => {
-  JobApp.find({status: "interviewed"},(err, foundInterviewedJobs) => {
+  JobApp.find({status: "Interview"},(err, foundInterviewedJobs) => {
     if (err) {
       res.send(err);
     }else {
