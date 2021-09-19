@@ -54,6 +54,7 @@ function TrackPage() {
                         companyName="Facebook" 
                         jobURL = "https://www.facebook.com/careers/v2/jobs/2948019165525651/" 
                         currentStatus = "New"
+                        currentStatusVerbiage = "Date to Apply"
                         currentStatusSetDate = "09/18/21"
                         />                    
                 </div>

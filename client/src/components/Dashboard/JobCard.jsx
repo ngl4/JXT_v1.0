@@ -2,7 +2,7 @@ import {React, useState} from "react";
 import Input from "../UI/input";
 import PopUp from "./PopUp"; 
 
-function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, newStatus, newStatusSetDate}) {
+function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, currentStatusVerbiage, newStatus, newStatusSetDate}) {
     const cardWidthMargin = {
         "width": "800px",
         "margin-left": "3rem",
@@ -45,7 +45,7 @@ function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, newS
                         <a href={jobURL} target="_blank" rel="noopener noreferrer">{jobURL ? "Job Site Here" : null}</a>
                         <br />
                         <br />
-                        <p>{currentStatus} <span className="text-black-50 fw-light font-monospace">- completed by {currentStatusSetDate}</span></p>
+                        <p>{currentStatus} <span className="text-black-50 fw-light font-monospace">- {currentStatusVerbiage}: {currentStatusSetDate}</span></p>
                     </div>
                 </div>
                 <div className="card-footer bg-transparent border-success m-0 p-1">
