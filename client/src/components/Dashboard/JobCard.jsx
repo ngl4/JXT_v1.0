@@ -51,12 +51,20 @@ function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, curr
                 <div className="card-footer bg-transparent border-success m-0 p-1">
                     <div className="container">
                         <div className="d-flex row justify-content-between">
-                            <div className="col-9">
+                            <div className="col-10">
                                 <div className="row g-3">
                                     <div className="col-sm-3">
                                         <input type="text" className="form-control" placeholder="New Status" aria-label="New Status" />
                                     </div>
-                                    <div className="col-sm-4">
+                                    <div className="col-sm-3">
+                                        <select className="form-select">
+                                            <option selected value="ScheduleOn">Schedule On</option>
+                                            <option className="dropdown-item" value="SubmitBy">Submit By</option>
+                                            <option className="dropdown-item" value="Applied">Applied</option>
+                                            <option className="dropdown-item" value="Completed">Completed</option>
+                                        </select>
+                                    </div>  
+                                    <div className="col-sm-3">
                                         <input type="date" className="form-control" placeholder="Schedule Date" aria-label="Schedule Date" />
                                     </div>
                                     <div className="col-sm">
@@ -68,7 +76,7 @@ function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, curr
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-3 d-flex flex-row-reverse">
+                            <div className="col-2 d-flex flex-row-reverse">
                                 <button className="btn">Details</button>
                             </div>
                         </div>
