@@ -152,7 +152,7 @@ function InsertPage() {
                             name = "companyName"
                             type = "text" 
                             onChange = {handleChange}
-                            placeholder = "Enter Name , Role"
+                            placeholder = "Enter Name, Role"
                             value = {companyName}
                         /> 
                     </div>

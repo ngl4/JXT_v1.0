@@ -1,5 +1,11 @@
 import React from "react";
 import JobCard from "./JobCard";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 function TrackPage() {
     const [totalJobs, setTotalJobs] = React.useState({
@@ -77,6 +83,7 @@ function TrackPage() {
                             currentStatus = {job.status}
                             currentStatusVerbiage = {job.statusVerbiage}
                             currentStatusSetDate = {job.statusDate}
+                            jobAppId = {job._id}
                         />
                     ))}
                 </div>
