@@ -1,31 +1,55 @@
 import {React, useState} from "react";
 import Input from "../UI/input";
 import Modal from "react-bootstrap/Modal";
-import PopUp from "./PopUp"; 
 
-function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, currentStatusVerbiage, newStatus, newStatusSetDate}) {
+function JobCard({jobAppId, companyName, jobURL, currentStatus, currentStatusSetDate, currentStatusVerbiage, newStatus, newStatusSetDate}) {
     const cardWidthMargin = {
         "width": "800px",
         "margin-left": "3rem",
         "margin-right": "3rem"
       };
+
     const [levelOfImpColor, setLevelOfImpColor] = useState(""); 
-    // const [levelOfImpText, setLevelOfImpText] = useState("");    
+    const [levelOfImp, setLevelOfImp] = useState("");    
+    const [isLevelUpdated, SetIsLevelUpdated] = useState(false);
     
     const handleChange = (event) => {
         event.preventDefault();  
         const value = event.target.value; 
-        
-        console.log(event.target.value);
+        //console.log(event.target.value);
 
         if (value === "High") {
+            setLevelOfImp("High");
             setLevelOfImpColor("btn-danger");
+            SetIsLevelUpdated(true);
         }else if (value === "Normal") {
+            setLevelOfImp("Normal")
             setLevelOfImpColor("btn-primary");
+            SetIsLevelUpdated(true);
         }else {
             setLevelOfImpColor("btn-success");
         }
-        // setLevelOfImpText(value);
+    }
+
+    const updateJob = () => {
+            fetch ("/updateJob", {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },    
+                body: JSON.stringify({ 
+                    _id: jobAppId,
+                    companyName: companyName,
+                    jobURL: jobURL,
+                    status: currentStatus,
+                    statusVerbiage: currentStatusVerbiage,
+                    statusDate: currentStatusSetDate,
+                    levelOfImp: levelOfImp
+                }) 
+            }).then((res) => res.json())
+            .then((data) => {
+                // console.log(data.updatedJobApp); 
+            }); 
     }
 
     const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +75,7 @@ function JobCard({companyName, jobURL, currentStatus, currentStatusSetDate, curr
                                 <option selected>Level of Importance</option>
                                 <option className="dropdown-item" value="High">High</option>
                                 <option className="dropdown-item" value="Normal">Normal</option>
+                                {isLevelUpdated ? updateJob() : null}
                             </select>
                         </div>
                     </div>

@@ -24,7 +24,7 @@ const jobAppSchema = new mongoose.Schema ({
   status: String,
   statusVerbiage: String,
   statusDate: String,
-  levelOfImp: String,
+  levelOfImp: String
 }); 
 
 const JobApp = mongoose.model('JobApp', jobAppSchema);
@@ -112,6 +112,37 @@ app.get("/findAll/status/interviewed", (req, res) => {
     }
   });
 });
+
+app.put("/updateJob", (req, res) => {
+  console.log(req.params);
+  JobApp.findByIdAndUpdate(
+    req.body._id, 
+    req.body, 
+    {new: true},
+    (err, updatedJobApp) => {
+      if (!err){
+        res.json({
+          updatedJobApp: updatedJobApp
+        });
+      }else {
+        res.send(err);
+      }
+    })
+});
+
+// app.route("/articles/:articleTitle")
+// .patch(function(req, res){
+//       Article.update(
+//         {title: req.params.articleTitle}, 
+//         {$set: req.body},
+//         function(err){
+//             if (!err){
+//                 res.send("Successfully updated article.");
+//             }else {
+//                 res.send(err); 
+//             }
+//     })  
+// });
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
