@@ -113,8 +113,9 @@ app.get("/findAll/status/interviewed", (req, res) => {
   });
 });
 
-app.put("/updateJob", (req, res) => {
-  console.log(req.params);
+//PUT - Update the entire document since LevelOfImp is a new field 
+app.put("/updateJobImp", (req, res) => {
+  //console.log(req.params);
   JobApp.findByIdAndUpdate(
     req.body._id, 
     req.body, 
@@ -123,6 +124,22 @@ app.put("/updateJob", (req, res) => {
       if (!err){
         res.json({
           updatedJobApp: updatedJobApp
+        });
+      }else {
+        res.send(err);
+      }
+    })
+});
+
+//PATCH - Update the specific fields in a field 
+app.patch("/updateJobStatus", (req, res) => {
+  JobApp.findByIdAndUpdate(
+    req.body._id, 
+    req.body,
+    (err, updatedJobAppStatus) => {
+      if (!err){
+        res.json({
+          updatedJobAppStatus: updatedJobAppStatus
         });
       }else {
         res.send(err);

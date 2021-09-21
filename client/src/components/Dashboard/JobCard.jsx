@@ -2,7 +2,7 @@ import {React, useState} from "react";
 import Input from "../UI/input";
 import Modal from "react-bootstrap/Modal";
 
-function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatus, currentStatusSetDate, currentStatusVerbiage, newStatus, newStatusSetDate}) {
+function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatus, currentStatusSetDate, currentStatusVerbiage}) {
     const cardWidthMargin = {
         "width": "800px",
         "margin-left": "3rem",
@@ -12,6 +12,9 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
     const [levelOfImpColor, setLevelOfImpColor] = useState(""); 
     const [levelOfImp, setLevelOfImp] = useState("");    
     const [isLevelUpdated, SetIsLevelUpdated] = useState(false);
+    // const [newStatus, setNewStatus] = useState("");
+    // const [newStatusVerbiage, setNewStatusVerbiage] = useState("");
+    // const [newStatusSetDate, setNewStatusSetDate] = useState("");
     
     const handleChange = (event) => {  
         const value = event.target.value; 
@@ -27,10 +30,31 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
         }else {
             setLevelOfImpColor("btn-success");
         }
+
+        // if (name === "newStatus") {
+        //     setNewStatus(value);
+        // }else if (name === "newStatusSetDate") {
+        //     setNewStatusSetDate(value);
+        // }
+
+        // if (value === "ScheduleOn") {
+        //     setNewStatusVerbiage(value); 
+        // }else if (value === "SubmitBy") {
+        //     setNewStatusVerbiage(value); 
+        // }else if (value === "Applied") {
+        //     setNewStatusVerbiage(value); 
+        // }else if (value === "Completed") {
+        //     setNewStatusVerbiage(value); 
+        // }
     }
 
-    const updateJob = () => {
-            fetch ("/updateJob", {
+    // const handleSubmit = (event) => { 
+    //     event.preventDefault();
+    //     updateJobStatus();
+    // }
+
+    const updateJobImp = () => {
+            fetch ("/updateJobImp", {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,6 +72,23 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
             // .then((data) => { //uncomment if additional customization needed 
             // }); 
     }
+
+//     const updateJobStatus = () => {
+//         fetch ("/updateJobStatus", {
+//             method: "PATCH",
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },    
+//             body: JSON.stringify({ 
+//                 _id: jobAppId,
+//                 status: newStatus,
+//                 statusVerbiage: newStatusVerbiage,
+//                 statusDate: newStatusSetDate
+//             }) 
+//         }).then((res) => res.json())
+//         // .then((data) => { //uncomment if additional customization needed 
+//         // }); 
+// }
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -77,7 +118,7 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                                 <option selected={levelOfImportance ? false : true}>Level of Importance</option>
                                 <option className="dropdown-item" value="High" selected={levelOfImportance === "High" ? true : false}>High</option>
                                 <option className="dropdown-item" value="Normal" selected={levelOfImportance === "Normal" ? true : false}>Normal</option>
-                                {isLevelUpdated ? updateJob() : null}
+                                {isLevelUpdated ? updateJobImp() : null}
                             </select>
                         </div>
                     </div>
@@ -94,10 +135,10 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                             <div className="col-10">
                                 <div className="row g-3">
                                     <div className="col-sm-3">
-                                        <input type="text" className="form-control" placeholder="New Status" aria-label="New Status" />
+                                        <input type="text" className="form-control" placeholder="New Status" aria-label="New Status" name="newStatus" onChange={handleChange} />
                                     </div>
                                     <div className="col-sm-3">
-                                        <select className="form-select">
+                                        <select className="form-select" onChange={handleChange}>
                                             <option selected value="ScheduleOn">Schedule On</option>
                                             <option className="dropdown-item" value="SubmitBy">Submit By</option>
                                             <option className="dropdown-item" value="Applied">Applied</option>
@@ -105,7 +146,7 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                                         </select>
                                     </div>  
                                     <div className="col-sm-3">
-                                        <input type="date" className="form-control" placeholder="Date" aria-label="Date" />
+                                        <input type="date" className="form-control" placeholder="Date" aria-label="Date" name="newStatusSetDate" onChange={handleChange} />
                                     </div>
                                     <div className="col-sm">
                                         <Input
