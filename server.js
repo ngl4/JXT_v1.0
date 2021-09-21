@@ -13,10 +13,10 @@ app.use(require("body-parser").json());
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
 //LIVE AWS CLOUD STORAGE - mongoosh + mongoAtlas 
-// mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
 
 // LOCAL STORAGE
-mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true}) 
+// mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true}) 
 
 const jobAppSchema = new mongoose.Schema ({
   companyName: String,
