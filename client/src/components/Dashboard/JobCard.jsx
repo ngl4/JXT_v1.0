@@ -2,7 +2,7 @@ import {React, useState} from "react";
 import Input from "../UI/input";
 import Modal from "react-bootstrap/Modal";
 
-function JobCard({jobAppId, companyName, jobURL, currentStatus, currentStatusSetDate, currentStatusVerbiage, newStatus, newStatusSetDate}) {
+function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatus, currentStatusSetDate, currentStatusVerbiage, newStatus, newStatusSetDate}) {
     const cardWidthMargin = {
         "width": "800px",
         "margin-left": "3rem",
@@ -13,10 +13,8 @@ function JobCard({jobAppId, companyName, jobURL, currentStatus, currentStatusSet
     const [levelOfImp, setLevelOfImp] = useState("");    
     const [isLevelUpdated, SetIsLevelUpdated] = useState(false);
     
-    const handleChange = (event) => {
-        event.preventDefault();  
+    const handleChange = (event) => {  
         const value = event.target.value; 
-        //console.log(event.target.value);
 
         if (value === "High") {
             setLevelOfImp("High");
@@ -47,9 +45,8 @@ function JobCard({jobAppId, companyName, jobURL, currentStatus, currentStatusSet
                     levelOfImp: levelOfImp
                 }) 
             }).then((res) => res.json())
-            .then((data) => {
-                // console.log(data.updatedJobApp); 
-            }); 
+            // .then((data) => { //uncomment if additional customization needed 
+            // }); 
     }
 
     const [isOpen, setIsOpen] = useState(false);
@@ -71,10 +68,15 @@ function JobCard({jobAppId, companyName, jobURL, currentStatus, currentStatusSet
                     <div className="d-flex justify-content-between">
                         <h5 className="card-title">{companyName}</h5>
                         <div className="btn-group">
-                            <select className={"form-select btn " + (levelOfImpColor ? levelOfImpColor : "btn-success")} aria-label="Default select example" onChange={handleChange}>
-                                <option selected>Level of Importance</option>
-                                <option className="dropdown-item" value="High">High</option>
-                                <option className="dropdown-item" value="Normal">Normal</option>
+                            <select className={"form-select btn " + 
+                            (levelOfImpColor ? levelOfImpColor 
+                            :levelOfImportance === "High" ? "btn-danger"
+                            :levelOfImportance === "Normal" ? "btn-primary"
+                            : "btn-success")} 
+                            aria-label="Default select example" onChange={handleChange}>
+                                <option selected={levelOfImportance ? false : true}>Level of Importance</option>
+                                <option className="dropdown-item" value="High" selected={levelOfImportance === "High" ? true : false}>High</option>
+                                <option className="dropdown-item" value="Normal" selected={levelOfImportance === "Normal" ? true : false}>Normal</option>
                                 {isLevelUpdated ? updateJob() : null}
                             </select>
                         </div>

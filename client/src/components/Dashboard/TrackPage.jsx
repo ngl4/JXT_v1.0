@@ -84,6 +84,7 @@ function TrackPage() {
                             currentStatusVerbiage = {job.statusVerbiage}
                             currentStatusSetDate = {job.statusDate}
                             jobAppId = {job._id}
+                            levelOfImportance = {job.levelOfImp}
                         />
                     ))}
                 </div>
