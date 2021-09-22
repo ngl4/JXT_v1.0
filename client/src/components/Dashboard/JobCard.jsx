@@ -1,5 +1,4 @@
 import {React, useState} from "react";
-import Input from "../UI/input";
 import Modal from "react-bootstrap/Modal";
 
 function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatus, currentStatusSetDate, currentStatusVerbiage}) {
@@ -12,12 +11,12 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
     const [levelOfImpColor, setLevelOfImpColor] = useState(""); 
     const [levelOfImp, setLevelOfImp] = useState("");    
     const [isLevelUpdated, SetIsLevelUpdated] = useState(false);
-    // const [newStatus, setNewStatus] = useState("");
-    // const [newStatusVerbiage, setNewStatusVerbiage] = useState("");
-    // const [newStatusSetDate, setNewStatusSetDate] = useState("");
+    const [newStatus, setNewStatus] = useState("");
+    const [newStatusVerbiage, setNewStatusVerbiage] = useState("");
+    const [newStatusSetDate, setNewStatusSetDate] = useState("");
     
     const handleChange = (event) => {  
-        const value = event.target.value; 
+        const {name, value} = event.target; 
 
         if (value === "High") {
             setLevelOfImp("High");
@@ -28,30 +27,27 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
             setLevelOfImpColor("btn-primary");
             SetIsLevelUpdated(true);
         }else {
-            setLevelOfImpColor("btn-success");
+            // setLevelOfImpColor("btn-success");
         }
 
-        // if (name === "newStatus") {
-        //     setNewStatus(value);
-        // }else if (name === "newStatusSetDate") {
-        //     setNewStatusSetDate(value);
-        // }
-
-        // if (value === "ScheduleOn") {
-        //     setNewStatusVerbiage(value); 
-        // }else if (value === "SubmitBy") {
-        //     setNewStatusVerbiage(value); 
-        // }else if (value === "Applied") {
-        //     setNewStatusVerbiage(value); 
-        // }else if (value === "Completed") {
-        //     setNewStatusVerbiage(value); 
-        // }
+        if (name === "newStatus") {
+            setNewStatus(value);
+        }else if (name === "newStatusSetDate") {
+            setNewStatusSetDate(value);
+        }else if (name === "newStatusVerbiage"){
+            setNewStatusVerbiage(value); 
+        }
     }
 
-    // const handleSubmit = (event) => { 
-    //     event.preventDefault();
-    //     updateJobStatus();
-    // }
+    const handleUpdateStatusClicked = (event) => { 
+        event.preventDefault();
+        updateJobStatus();
+
+        //clear fields
+        setNewStatus("");
+        setNewStatusSetDate("");
+        setNewStatusVerbiage(""); 
+    }
 
     const updateJobImp = () => {
             fetch ("/updateJobImp", {
@@ -73,22 +69,23 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
             // }); 
     }
 
-//     const updateJobStatus = () => {
-//         fetch ("/updateJobStatus", {
-//             method: "PATCH",
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },    
-//             body: JSON.stringify({ 
-//                 _id: jobAppId,
-//                 status: newStatus,
-//                 statusVerbiage: newStatusVerbiage,
-//                 statusDate: newStatusSetDate
-//             }) 
-//         }).then((res) => res.json())
-//         // .then((data) => { //uncomment if additional customization needed 
-//         // }); 
-// }
+    const updateJobStatus = () => {
+        fetch ("/updateJobStatus", {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+            },    
+            body: JSON.stringify({ 
+                _id: jobAppId,
+                status: newStatus,
+                statusVerbiage: newStatusVerbiage,
+                statusDate: newStatusSetDate
+            }) 
+        }).then((res) => res.json())
+        .then((data) => { //uncomment if additional customization needed 
+            console.log("SUCCESS", data.updatedJobAppStatus);
+        }); 
+    }
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -135,25 +132,26 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                             <div className="col-10">
                                 <div className="row g-3">
                                     <div className="col-sm-3">
-                                        <input type="text" className="form-control" placeholder="New Status" aria-label="New Status" name="newStatus" onChange={handleChange} />
+                                        <input type="text" className="form-control" placeholder="New Status" aria-label="New Status" name="newStatus" value={newStatus} onChange={handleChange} />
                                     </div>
                                     <div className="col-sm-3">
-                                        <select className="form-select" onChange={handleChange}>
-                                            <option selected value="ScheduleOn">Schedule On</option>
-                                            <option className="dropdown-item" value="SubmitBy">Submit By</option>
-                                            <option className="dropdown-item" value="Applied">Applied</option>
-                                            <option className="dropdown-item" value="Completed">Completed</option>
+                                        <select className="form-select" name="newStatusVerbiage" value={newStatusVerbiage} onChange={handleChange}>
+                                            <option selected>...</option>
+                                            <option className="dropdown-item" value="Schedule on">Schedule on</option>
+                                            <option className="dropdown-item" value="Submit by">Submit by</option>
+                                            <option className="dropdown-item" value="applied on">applied on</option>
+                                            <option className="dropdown-item" value="Completed on">Completed on</option>
                                         </select>
                                     </div>  
                                     <div className="col-sm-3">
-                                        <input type="date" className="form-control" placeholder="Date" aria-label="Date" name="newStatusSetDate" onChange={handleChange} />
+                                        <input type="date" className="form-control" placeholder="Date" aria-label="Date" name="newStatusSetDate" value={newStatusSetDate} onChange={handleChange} />
                                     </div>
                                     <div className="col-sm">
-                                        <Input
+                                        <button
                                             className="btn btn-outline-secondary border-0"
                                             type = "submit"
                                             value = "Update Status" 
-                                        />       
+                                            onClick = {handleUpdateStatusClicked}>Update Status</button>       
                                     </div>
                                 </div>
                             </div>

@@ -135,7 +135,12 @@ app.put("/updateJobImp", (req, res) => {
 app.patch("/updateJobStatus", (req, res) => {
   JobApp.findByIdAndUpdate(
     req.body._id, 
-    req.body,
+    {
+      status: req.body.status,
+      statusVerbiage: req.body.statusVerbiage,
+      statusDate: req.body.statusDate
+    },
+    {new: true},
     (err, updatedJobAppStatus) => {
       if (!err){
         res.json({
