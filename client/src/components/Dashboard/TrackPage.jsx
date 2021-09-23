@@ -1,23 +1,21 @@
 import React from "react";
 import JobCard from "./JobCard";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
 
 function TrackPage() {
     const [totalJobs, setTotalJobs] = React.useState({
         count: 0,
         data: []
     });
+    //TODO: SET A NEW VARIABLE STATE FOR TOTAL LEVEL OF IMPORTANCE (NOT SET)
+    //TODO: SET A NEW VARIABLE STATE FOR TOTAL HIGH IMPORTANCE
+    //TODO: SET A NEW VARIABLE STATE FOR TOTAL LOW IMPORTANCE 
     const [newJobs, setNewJobs] = React.useState(0);
     const [appliedJobs, setAppliedJobs] = React.useState(0);
     const [phoneCalledJobs, setPhoneCalledJobs] = React.useState(0);
     const [interviewedJobs, setInterviewedJobs] = React.useState(0);
 
     React.useEffect(() => {
+
       fetch("/findAll")
         .then((res) => res.json())  
         .then((data) => {
@@ -64,7 +62,6 @@ function TrackPage() {
                 <div className="col-2 text-center">Interviews <br/><p>{interviewedJobs ? interviewedJobs : "0"}</p></div>   
             </div>    
             <div className="row d-flex justify-content-center">
-                {/* JobBar -- TODO: using map() method to display all jobs */}
                 <div className="col">
                     {/* Sample Job Card */}
                     {/* <JobCard 

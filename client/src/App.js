@@ -25,6 +25,10 @@ function App() {
     color: 'white'
   };
 
+  const reloadPage = () => { 
+    window.location.reload(); 
+}
+
   return (
     <div className="container-fluid">
       
@@ -44,7 +48,7 @@ function App() {
           <Route path="/enter-page">
             <InsertPage />
           </Route>
-          <Route path="/track-page">
+          <Route path="/track-page" onClick={reloadPage}>
             <TrackPage />
           </Route>
           </body>
