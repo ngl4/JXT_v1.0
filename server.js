@@ -33,6 +33,12 @@ const JobApp = mongoose.model('JobApp', jobAppSchema);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+app.get('/enter-page', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+app.get('/track-page', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // API ENDPOINT
 app.get("/api", (req, res) => {
