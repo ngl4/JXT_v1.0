@@ -80,6 +80,7 @@ function TrackPage() {
                     return a.levelOfImpOrderNum - b.levelOfImpOrderNum;
                 }).map((job) => (
                         <JobCard 
+                            key = {job._id}
                             companyName = {job.companyName}
                             jobURL = {job.jobURL}
                             currentStatus = {job.status}

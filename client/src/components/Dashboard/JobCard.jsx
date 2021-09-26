@@ -64,10 +64,8 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                     levelOfImpOrderNum: levelOfImpOrderNum
                 }) 
             }).then((res) => res.json())
-            .then((data) => { 
-                setLevelOfImpColor("btn-success"); //set to green-ish color when before reloading 
-                window.location.reload(); 
-            }); 
+            // .then((data) => { //uncomment this when needed - data returned from the API endpoint
+            // }); 
     }
 
     const updateJobStatus = () => {
