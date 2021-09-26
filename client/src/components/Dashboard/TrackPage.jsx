@@ -1,32 +1,30 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import JobCard from "./JobCard";
 
 function TrackPage() {
-    const [totalJobs, setTotalJobs] = React.useState({
+    const [totalJobs, setTotalJobs] = useState({
         count: 0,
         data: []
     });
-    //TODO: SET A NEW VARIABLE STATE FOR TOTAL LEVEL OF IMPORTANCE (NOT SET)
-    //TODO: SET A NEW VARIABLE STATE FOR TOTAL HIGH IMPORTANCE
-    //TODO: SET A NEW VARIABLE STATE FOR TOTAL LOW IMPORTANCE 
-    const [newJobs, setNewJobs] = React.useState(0);
-    const [appliedJobs, setAppliedJobs] = React.useState(0);
-    const [phoneCalledJobs, setPhoneCalledJobs] = React.useState(0);
-    const [interviewedJobs, setInterviewedJobs] = React.useState(0);
+    const [newJobs, setNewJobs] = useState(0);
+    const [appliedJobs, setAppliedJobs] = useState(0);
+    const [phoneCalledJobs, setPhoneCalledJobs] = useState(0);
+    const [interviewedJobs, setInterviewedJobs] = useState(0);
 
-    React.useEffect(() => {
-
+    useEffect(() => {
       fetch("/findAll")
         .then((res) => res.json())  
         .then((data) => {
             const allJobs = data.foundAllJobs;
-            const allJobsCopy = []
+            const allJobsTemp = [];
+
             allJobs.forEach((job) => {
-               allJobsCopy.push(job); 
+               allJobsTemp.push(job);  
             });
+
             setTotalJobs({
                 count: allJobs.length,
-                data: allJobsCopy
+                data: allJobsTemp
             });
         });  
 
@@ -52,6 +50,13 @@ function TrackPage() {
         });        
     });
 
+    // const lineBreakStyle = {
+    //     height:"2px",
+    //     "border-width": 0,
+    //     color: "gray",
+    //     "background-color": "green"
+    // }
+
     return (
         <div className="container">
              <div className="row d-flex justify-content-center mb-5 mt-4">
@@ -62,18 +67,18 @@ function TrackPage() {
                 <div className="col-2 text-center">Interviews <br/><p>{interviewedJobs ? interviewedJobs : "0"}</p></div>   
             </div>    
             <div className="row d-flex justify-content-center">
+                {/* Sample Job Card */}
+                {/* <JobCard 
+                    companyName="Facebook" 
+                    jobURL = "https://www.facebook.com/careers/v2/jobs/2948019165525651/" 
+                    currentStatus = "New"
+                    currentStatusVerbiage = "Date to Apply"
+                    currentStatusSetDate = "09/18/21"
+                    />                     */}   
                 <div className="col">
-                    {/* Sample Job Card */}
-                    {/* <JobCard 
-                        companyName="Facebook" 
-                        jobURL = "https://www.facebook.com/careers/v2/jobs/2948019165525651/" 
-                        currentStatus = "New"
-                        currentStatusVerbiage = "Date to Apply"
-                        currentStatusSetDate = "09/18/21"
-                        />                     */}   
-                </div>
-                <div className="col">
-                    {totalJobs.data.map((job) => (
+                {totalJobs.data.sort((a, b) => {
+                    return a.levelOfImpOrderNum - b.levelOfImpOrderNum;
+                }).map((job) => (
                         <JobCard 
                             companyName = {job.companyName}
                             jobURL = {job.jobURL}
@@ -84,9 +89,6 @@ function TrackPage() {
                             levelOfImportance = {job.levelOfImp}
                         />
                     ))}
-                </div>
-                <div className="col">
-                
                 </div>
             </div>      
         </div>

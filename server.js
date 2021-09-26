@@ -24,7 +24,8 @@ const jobAppSchema = new mongoose.Schema ({
   status: String,
   statusVerbiage: String,
   statusDate: String,
-  levelOfImp: String
+  levelOfImp: String,
+  levelOfImpOrderNum: Number //order number
 }); 
 
 const JobApp = mongoose.model('JobApp', jobAppSchema);
@@ -46,7 +47,9 @@ app.post("/create", (req, res) => {
     jobURL: req.body.jobURL,
     status: req.body.status,
     statusVerbiage: req.body.statusVerbiage,
-    statusDate: req.body.statusDate  
+    statusDate: req.body.statusDate,
+    levelOfImp: "",
+    levelOfImpOrderNum: 0
   });
 
   jobApp.save();
@@ -67,7 +70,7 @@ app.get("/findAll", (req, res) => {
   });
 });
 
-//Get - Find - Specific Status Job Apps 
+//GET - Find - Specific Status Job Apps 
 app.get("/findAll/status/new", (req, res) => {
   JobApp.find({status: "New"},(err, foundNewJobs) => {
     if (err) {
@@ -114,16 +117,19 @@ app.get("/findAll/status/interviewed", (req, res) => {
 });
 
 //PUT - Update the entire document since LevelOfImp is a new field 
-app.put("/updateJobImp", (req, res) => {
+app.patch("/updateJobImp", (req, res) => {
   //console.log(req.params);
   JobApp.findByIdAndUpdate(
     req.body._id, 
-    req.body, 
+    {
+      levelOfImp: req.body.levelOfImp,
+      levelOfImpOrderNum: req.body.levelOfImpOrderNum
+    }, 
     {new: true},
-    (err, updatedJobApp) => {
+    (err, updatedJobImpApp) => {
       if (!err){
         res.json({
-          updatedJobApp: updatedJobApp
+          updatedJobImpApp: updatedJobImpApp
         });
       }else {
         res.send(err);

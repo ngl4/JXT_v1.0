@@ -10,6 +10,7 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
 
     const [levelOfImpColor, setLevelOfImpColor] = useState(""); 
     const [levelOfImp, setLevelOfImp] = useState("");    
+    const [levelOfImpOrderNum, setlevelOfImpOrderNum] = useState(0);
     const [isLevelUpdated, SetIsLevelUpdated] = useState(false);
     const [newStatus, setNewStatus] = useState("");
     const [newStatusVerbiage, setNewStatusVerbiage] = useState("");
@@ -20,14 +21,16 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
 
         if (value === "High") {
             setLevelOfImp("High");
+            setlevelOfImpOrderNum(1);
             setLevelOfImpColor("btn-danger");
             SetIsLevelUpdated(true);
         }else if (value === "Normal") {
-            setLevelOfImp("Normal")
+            setLevelOfImp("Normal");
+            setlevelOfImpOrderNum(2);
             setLevelOfImpColor("btn-primary");
             SetIsLevelUpdated(true);
         }else {
-            // setLevelOfImpColor("btn-success");
+            setlevelOfImpOrderNum(0);
         }
 
         if (name === "newStatus") {
@@ -51,22 +54,20 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
 
     const updateJobImp = () => {
             fetch ("/updateJobImp", {
-                method: "PUT",
+                method: "PATCH",
                 headers: {
                     'Content-Type': 'application/json',
                 },    
                 body: JSON.stringify({ 
                     _id: jobAppId,
-                    companyName: companyName,
-                    jobURL: jobURL,
-                    status: currentStatus,
-                    statusVerbiage: currentStatusVerbiage,
-                    statusDate: currentStatusSetDate,
-                    levelOfImp: levelOfImp
+                    levelOfImp: levelOfImp,
+                    levelOfImpOrderNum: levelOfImpOrderNum
                 }) 
             }).then((res) => res.json())
-            // .then((data) => { //uncomment if additional customization needed 
-            // }); 
+            .then((data) => { 
+                setLevelOfImpColor("btn-success"); //set to green-ish color when before reloading 
+                window.location.reload(); 
+            }); 
     }
 
     const updateJobStatus = () => {
@@ -115,7 +116,6 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                                 <option selected={levelOfImportance ? false : true}>Level of Importance</option>
                                 <option className="dropdown-item" value="High" selected={levelOfImportance === "High" ? true : false}>High</option>
                                 <option className="dropdown-item" value="Normal" selected={levelOfImportance === "Normal" ? true : false}>Normal</option>
-                                {isLevelUpdated ? updateJobImp() : null}
                             </select>
                         </div>
                     </div>
@@ -155,6 +155,7 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                                     </div>
                                 </div>
                             </div>
+                            {isLevelUpdated ? updateJobImp() : null}
                             <div className="col-2 d-flex flex-row-reverse">
                                 <button className="btn" onClick={showModal}>Details</button>
                                 <Modal show={isOpen} size="xl" onHide={hideModal} scrollable="true" centered>
