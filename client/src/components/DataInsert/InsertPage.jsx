@@ -117,7 +117,9 @@ function InsertPage() {
                 jobURL: jobURL,
                 status: status,
                 statusVerbiage: statusVerbiage,
-                statusDate: statusDate
+                statusDate: statusDate,
+                levelOfImp: "",
+                levelOfImpOrderNum: 0
             }) 
         }).then((res) => res.json())
         .then((data) => {

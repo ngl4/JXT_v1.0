@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import './App.css';
 import InsertPage from "./components/DataInsert/InsertPage";
 import TrackPage from "./components/Dashboard/TrackPage";
@@ -11,9 +11,9 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const [data, setData] = React.useState(null);
+  const [data, setData] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch("/api")
       .then((res) => res.json())  
       .then((data) => setData(data.message));  
@@ -48,7 +48,7 @@ function App() {
           <Route path="/enter-page">
             <InsertPage />
           </Route>
-          <Route path="/track-page" onClick={reloadPage}>
+          <Route path="/track-page" onClick = {reloadPage}>
             <TrackPage />
           </Route>
           </body>
