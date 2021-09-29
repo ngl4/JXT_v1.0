@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 
 function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatus, currentStatusSetDate, currentStatusVerbiage}) {
     const cardWidthMargin = {
-        "width": "800px",
+        "width": "850px",
         "margin-left": "3rem",
         "margin-right": "3rem"
       };
@@ -15,6 +15,7 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
     const [newStatus, setNewStatus] = useState("");
     const [newStatusVerbiage, setNewStatusVerbiage] = useState("");
     const [newStatusSetDate, setNewStatusSetDate] = useState("");
+    // const [notesOnChange, setNotesOnChange] = useState("");
     
     const handleChange = (event) => {  
         const {name, value} = event.target; 
@@ -40,6 +41,8 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
         }else if (name === "newStatusVerbiage"){
             setNewStatusVerbiage(value); 
         }
+
+        // setNotesOnChange(value);
     }
 
     const handleUpdateStatusClicked = (event) => { 
@@ -166,6 +169,11 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                                         dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
                                         consectetur ac, vestibulum at eros.
                                         </p>
+                                        {/* <div className="mb-3">
+                                            <label for="noteTakingTextArea" className="form-label">Notes</label>
+                                            <textarea className="form-control" id="noteTakingTextArea" rows="10" value={notesTextArea ? notesTextArea : notesOnChange} onChange={handleChange}></textarea>
+                                            {console.log(notesOnChange)}
+                                        </div> */}
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <button onClick={hideModal}>Cancel</button>
