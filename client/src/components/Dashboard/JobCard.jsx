@@ -188,11 +188,7 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                                         <Modal.Title>{companyName}</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>        
-                                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                                        dcvntras mssdattis ertgconsectetur drcvbpurus sitwef aw3famet fermentumdrtf. Qefxras justo eeodio,
-                                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                                        consectetur ac, vestibulum at eros.
-                                        </p>
+                                        <p></p>
                                         <div className="mb-3">
                                             <label for="noteTakingTextArea" className="form-label">Notes</label>
                                             <textarea className="form-control" id="noteTakingTextArea" rows="10" value={notesOnChange} onChange={handleNotesChange}></textarea>
