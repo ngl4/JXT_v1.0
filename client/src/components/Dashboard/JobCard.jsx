@@ -1,7 +1,7 @@
 import {React, useState} from "react";
 import Modal from "react-bootstrap/Modal";
 
-function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatus, currentStatusSetDate, currentStatusVerbiage}) {
+function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatus, currentStatusSetDate, currentStatusVerbiage, savedNotes}) {
     const cardWidthMargin = {
         "width": "850px",
         "margin-left": "3rem",
@@ -15,7 +15,8 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
     const [newStatus, setNewStatus] = useState("");
     const [newStatusVerbiage, setNewStatusVerbiage] = useState("");
     const [newStatusSetDate, setNewStatusSetDate] = useState("");
-    // const [notesOnChange, setNotesOnChange] = useState("");
+    const [notesOnChange, setNotesOnChange] = useState("");
+    const [isNotesUpdated, setIsNotesUpdated] = useState(false);
     
     const handleChange = (event) => {  
         const {name, value} = event.target; 
@@ -30,8 +31,6 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
             setlevelOfImpOrderNum(2);
             setLevelOfImpColor("btn-primary");
             SetIsLevelUpdated(true);
-        }else {
-            setlevelOfImpOrderNum(0);
         }
 
         if (name === "newStatus") {
@@ -42,7 +41,13 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
             setNewStatusVerbiage(value); 
         }
 
-        // setNotesOnChange(value);
+        
+    }
+
+    const handleNotesChange = (event) => {
+        const value = event.target.value; 
+        setNotesOnChange(value);
+        setIsNotesUpdated(true);
     }
 
     const handleUpdateStatusClicked = (event) => { 
@@ -85,7 +90,23 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
             }) 
         }).then((res) => res.json())
         .then((data) => { //uncomment if additional customization needed 
-            console.log("SUCCESS", data.updatedJobAppStatus);
+            // console.log("SUCCESS", data.updatedJobAppStatus);
+        }); 
+    }
+
+    const handleSaveNotes = () => {
+        fetch ("/saveNotes", {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+            },    
+            body: JSON.stringify({ 
+                _id: jobAppId,
+                savedNotes: notesOnChange
+            }) 
+        }).then((res) => res.json())
+        .then((data) => { //uncomment if additional customization needed 
+            console.log("SUCCESS", data.foundSavedNotes);
         }); 
     }
 
@@ -95,6 +116,9 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
         event.preventDefault();
         console.log("click!");
         setIsOpen(true);
+        if (savedNotes) {
+            setNotesOnChange(savedNotes); 
+        }
     };
   
     const hideModal = () => {
@@ -169,15 +193,14 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                                         dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
                                         consectetur ac, vestibulum at eros.
                                         </p>
-                                        {/* <div className="mb-3">
+                                        <div className="mb-3">
                                             <label for="noteTakingTextArea" className="form-label">Notes</label>
-                                            <textarea className="form-control" id="noteTakingTextArea" rows="10" value={notesTextArea ? notesTextArea : notesOnChange} onChange={handleChange}></textarea>
-                                            {console.log(notesOnChange)}
-                                        </div> */}
+                                            <textarea className="form-control" id="noteTakingTextArea" rows="10" value={notesOnChange} onChange={handleNotesChange}></textarea>
+                                        </div>
+                                        {isNotesUpdated ? handleSaveNotes() : null}
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <button onClick={hideModal}>Cancel</button>
-                                        <button>Save</button>
+                                        <button onClick={hideModal}>Close</button>
                                     </Modal.Footer>
                                 </Modal>
                             </div>

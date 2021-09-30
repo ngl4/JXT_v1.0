@@ -88,6 +88,7 @@ function TrackPage() {
                             currentStatusSetDate = {job.statusDate}
                             jobAppId = {job._id}
                             levelOfImportance = {job.levelOfImp}
+                            savedNotes = {job.savedNotes}
                         />
                     ))}
                 </div>

@@ -25,7 +25,8 @@ const jobAppSchema = new mongoose.Schema ({
   statusVerbiage: String,
   statusDate: String,
   levelOfImp: String,
-  levelOfImpOrderNum: Number //order number
+  levelOfImpOrderNum: Number, //order number
+  savedNotes: String
 }); 
 
 const JobApp = mongoose.model('JobApp', jobAppSchema);
@@ -55,7 +56,8 @@ app.post("/create", (req, res) => {
     statusVerbiage: req.body.statusVerbiage,
     statusDate: req.body.statusDate,
     levelOfImp: "",
-    levelOfImpOrderNum: 0
+    levelOfImpOrderNum: 0,
+    savedNotes: ""
   });
 
   jobApp.save();
@@ -164,19 +166,24 @@ app.patch("/updateJobStatus", (req, res) => {
     })
 });
 
-// app.route("/articles/:articleTitle")
-// .patch(function(req, res){
-//       Article.update(
-//         {title: req.params.articleTitle}, 
-//         {$set: req.body},
-//         function(err){
-//             if (!err){
-//                 res.send("Successfully updated article.");
-//             }else {
-//                 res.send(err); 
-//             }
-//     })  
-// });
+//PATCH - Update the specific fields in a field 
+app.patch("/saveNotes", (req, res) => {
+  JobApp.findByIdAndUpdate(
+    req.body._id, 
+    {
+      savedNotes: req.body.savedNotes
+    },
+    {new: true},
+    (err, foundSavedNotes) => {
+      if (!err){
+        res.json({
+          foundSavedNotes: foundSavedNotes
+        });
+      }else {
+        res.send(err);
+      }
+    })
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
