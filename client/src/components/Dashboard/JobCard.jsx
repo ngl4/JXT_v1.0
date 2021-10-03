@@ -39,9 +39,7 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
             setNewStatusSetDate(value);
         }else if (name === "newStatusVerbiage"){
             setNewStatusVerbiage(value); 
-        }
-
-        
+        }      
     }
 
     const handleNotesChange = (event) => {
@@ -130,7 +128,9 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
             <div className="card border-success mb-3" style={cardWidthMargin}>
                 <div className="card-body text-success">
                     <div className="d-flex justify-content-between">
-                        <h5 className="card-title">{companyName}</h5>
+                        <h5 className="card-title">
+                            <a href={jobURL} target="_blank" rel="noopener noreferrer">{companyName}</a>
+                        </h5>
                         <div className="btn-group">
                             <select className={"form-select btn " + 
                             (levelOfImpColor ? levelOfImpColor 
@@ -145,9 +145,9 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                         </div>
                     </div>
                     <div className="card-text">
-                        <a href={jobURL} target="_blank" rel="noopener noreferrer">{jobURL ? "Job Site Here" : null}</a>
-                        <br />
-                        <br />
+                        {/* <a href={jobURL} target="_blank" rel="noopener noreferrer">{jobURL ? "Job Site Here" : null}</a> */}
+                        <h6>Notes:</h6>
+                        {savedNotes ? <p className="text-black-50 fw-light font-monospace"> {savedNotes.slice(0, 140)}{savedNotes.slice(0, 140).length === 140 ? <em>...see Details</em> : null} </p> : null}
                         <p>{currentStatus} <span className="text-black-50 fw-light font-monospace">- {currentStatusVerbiage}: {currentStatusSetDate}</span></p>
                     </div>
                 </div>
