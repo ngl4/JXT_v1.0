@@ -43,7 +43,8 @@ function App() {
         <Switch>
         <body className="row d-flex justify-content-center align-items-center mt-5">
           <Route exact path="/">
-            <h1 className="text-center">Welcome to JXT Job Track App!</h1>
+            <TrackPage />
+            {/* <h1 className="text-center">Welcome to JXT Job Track App!</h1> */}
           </Route>
           <Route path="/enter-page">
             <InsertPage />
