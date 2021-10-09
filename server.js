@@ -10,6 +10,18 @@ const uri = process.env.MONGODB_URI; //heroku config variable
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(require("body-parser").json());
 
+// Today Date
+let today = new Date();
+let dd = String(today.getDate()).padStart(2, '0');
+let mm = String(today.getMonth() + 1).padStart(2, '0');
+let yyyy = today.getFullYear();
+console.log(today, mm, dd, yyyy);
+let todayWithDash = yyyy + "-" + mm + "-" + dd; 
+console.log(todayWithDash);
+let todayDate = new Date(todayWithDash);
+console.log(todayDate);
+
+
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
 //LIVE AWS CLOUD STORAGE - mongoosh + mongoAtlas 
@@ -78,12 +90,44 @@ app.get("/findAll", (req, res) => {
   });
 });
 
+
+
 //GET - Find - Specific Status Job Apps 
 app.get("/findAll/status/new", (req, res) => {
   JobApp.find({status: "New"},(err, foundNewJobs) => {
     if (err) {
       res.send(err);
     }else {
+
+      for (let i = 0; i < foundNewJobs.length; i++) {
+        console.log(foundNewJobs[i].statusDate); //TODO: What if there are more than 1 new job, there could be 5 of them?! 
+        let enteredDate = new Date(foundNewJobs[i].statusDate); 
+        let diffTime = Math.abs(todayDate - enteredDate);
+        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        console.log(diffDays); 
+        if (diffDays > 14) { 
+          console.log("Applied more than 14 days - set status to inactive");
+
+          const inactiveStatus = "Inactive"; 
+          JobApp.findByIdAndUpdate(
+            foundNewJobs[i]._id, 
+            {
+              status: inactiveStatus,
+            }, 
+            {new: true},
+            (err, updatedJobStatus) => {
+              if (!err){
+                console.log("Successfully updated job status to: " + updatedJobStatus);
+              }else {
+                res.send(err);
+              }
+            })
+
+        }else {
+          console.log("Applied less than 14 days - no changes needed");
+        }   
+      }
+
       res.json({
         foundNewJobs: foundNewJobs
       });
