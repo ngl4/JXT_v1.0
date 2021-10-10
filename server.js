@@ -100,19 +100,21 @@ app.get("/findAll/status/new", (req, res) => {
     }else {
 
       for (let i = 0; i < foundNewJobs.length; i++) {
-        console.log(foundNewJobs[i].statusDate); //TODO: What if there are more than 1 new job, there could be 5 of them?! 
+        console.log(foundNewJobs[i].statusDate); 
         let enteredDate = new Date(foundNewJobs[i].statusDate); 
         let diffTime = Math.abs(todayDate - enteredDate);
         let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         console.log(diffDays); 
-        if (diffDays > 14) { 
-          console.log("Applied more than 14 days - set status to inactive");
+        if (diffDays > 7) { 
+          console.log("Not yet applied more than 7 days - set status to inactive");
 
           const inactiveStatus = "Inactive"; 
           JobApp.findByIdAndUpdate(
             foundNewJobs[i]._id, 
             {
               status: inactiveStatus,
+              levelOfImp: "Inactive",
+              levelOfImpOrderNum: 3
             }, 
             {new: true},
             (err, updatedJobStatus) => {
@@ -124,7 +126,7 @@ app.get("/findAll/status/new", (req, res) => {
             })
 
         }else {
-          console.log("Applied less than 14 days - no changes needed");
+          console.log("Not yet applied less than 7 days - no changes needed");
         }   
       }
 

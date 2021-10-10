@@ -136,9 +136,9 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                             (levelOfImpColor ? levelOfImpColor 
                             :levelOfImportance === "High" ? "btn-danger"
                             :levelOfImportance === "Normal" ? "btn-primary"
-                            : "btn-success")} 
+                            :levelOfImportance === "Inactive" ? "btn-secondary" : "btn-success")} 
                             aria-label="Default select example" onChange={handleChange}>
-                                <option selected={levelOfImportance ? false : true}>Level of Importance</option>
+                                <option selected={levelOfImportance ? false : true}>{levelOfImportance === "Inactive" ? "Inactive" : "Level of Importance"}</option>
                                 <option className="dropdown-item" value="High" selected={levelOfImportance === "High" ? true : false}>High</option>
                                 <option className="dropdown-item" value="Normal" selected={levelOfImportance === "Normal" ? true : false}>Normal</option>
                             </select>
