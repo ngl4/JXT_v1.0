@@ -12,26 +12,13 @@ function TrackPage() {
     const [interviewedJobs, setInterviewedJobs] = useState(0);
 
     useEffect(() => {
-      fetch("/findAll")
-        .then((res) => res.json())  
-        .then((data) => {
-            const allJobs = data.foundAllJobs;
-            const allJobsTemp = [];
 
-            allJobs.forEach((job) => {
-               allJobsTemp.push(job);  
-            });
-
-            setTotalJobs({
-                count: allJobs.length,
-                data: allJobsTemp
-            });
-        });  
+        loadAllJobs();
 
         fetch("/findAll/status/new")
         .then((res) => res.json())  
         .then((data) => {
-            setNewJobs((data.foundNewJobs).length)
+            setNewJobs((data.foundNewJobs).length);
         });  
         fetch("/findAll/status/applied")
         .then((res) => res.json())  
@@ -49,6 +36,15 @@ function TrackPage() {
             setInterviewedJobs((data.foundInterviewedJobs).length)
         });        
     });
+
+    const loadAllJobs = async () => {
+        const response = await fetch("/findAll");
+        const data = await response.json();
+        setTotalJobs({
+            count: data.foundAllJobs.length,
+            data: data.foundAllJobs
+        });
+    }
 
     // const lineBreakStyle = {
     //     height:"2px",

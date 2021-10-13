@@ -104,7 +104,7 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
             }) 
         }).then((res) => res.json())
         .then((data) => { //uncomment if additional customization needed 
-            console.log("SUCCESS", data.foundSavedNotes);
+            // console.log("SUCCESS", data.foundSavedNotes);
         }); 
     }
 
