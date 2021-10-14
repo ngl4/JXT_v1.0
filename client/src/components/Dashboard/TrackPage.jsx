@@ -1,11 +1,18 @@
 import React, {useState, useEffect} from "react";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 import JobCard from "./JobCard";
+import SubTrackPage1 from "./SubTrackPage1";
 
 function TrackPage() {
     const [totalJobs, setTotalJobs] = useState({
         count: 0,
         data: []
-    });
+    }); 
     const [newJobs, setNewJobs] = useState(0);
     const [appliedJobs, setAppliedJobs] = useState(0);
     const [phoneCalledJobs, setPhoneCalledJobs] = useState(0);
@@ -53,12 +60,19 @@ function TrackPage() {
     //     "background-color": "green"
     // }
 
+    const reloadPage = () => { 
+        window.location.reload(); 
+    }
+
     return (
         <div className="container">
              <div className="row d-flex justify-content-center mb-5 mt-4">
              {/* TODO: create link to each of these sections so users can access to different views */}
                 <div className="col-2 text-center">Total Jobs <br/><p>{totalJobs.count ? totalJobs.count : "0"}</p></div>
-                <div className="col-2 text-center">New <br/><p>{newJobs ? newJobs : "0"}</p></div>   
+                <Router>
+                    <div className="col-2 text-center" onClick = {reloadPage}><Link to="/track-page/new-jobs">New</Link><br/><p>{newJobs ? newJobs : "0"}</p></div>
+                </Router>
+                {/* <div className="col-2 text-center">New<br/><p>{newJobs ? newJobs : "0"}</p></div>    */}
                 <div className="col-2 text-center">Applied <br/><p>{appliedJobs ? appliedJobs : "0"}</p></div>  
                 <div className="col-2 text-center">Phone Calls <br/><p>{phoneCalledJobs ? phoneCalledJobs : "0"}</p></div>  
                 <div className="col-2 text-center">Interviews <br/><p>{interviewedJobs ? interviewedJobs : "0"}</p></div>   
@@ -72,8 +86,32 @@ function TrackPage() {
                     currentStatus = "New"
                     currentStatusVerbiage = "Date to Apply"
                     currentStatusSetDate = "09/18/21"
-                    />                     */}   
-                <div className="col">
+                    />                     */}
+                <Switch>
+                    <Route path="/track-page/new-jobs">
+                        <SubTrackPage1 />
+                    </Route>
+                    <Route>
+                        <div className="col">
+                        {totalJobs.data.sort((a, b) => {
+                            return a.levelOfImpOrderNum - b.levelOfImpOrderNum;
+                        }).map((job) => (
+                                <JobCard 
+                                    key = {job._id}
+                                    companyName = {job.companyName}
+                                    jobURL = {job.jobURL}
+                                    currentStatus = {job.status}
+                                    currentStatusVerbiage = {job.statusVerbiage}
+                                    currentStatusSetDate = {job.statusDate}
+                                    jobAppId = {job._id}
+                                    levelOfImportance = {job.levelOfImp}
+                                    savedNotes = {job.savedNotes}
+                                />
+                            ))}
+                        </div>                       
+                    </Route>
+                </Switch>   
+                {/* <div className="col">
                 {totalJobs.data.sort((a, b) => {
                     return a.levelOfImpOrderNum - b.levelOfImpOrderNum;
                 }).map((job) => (
@@ -89,7 +127,7 @@ function TrackPage() {
                             savedNotes = {job.savedNotes}
                         />
                     ))}
-                </div>
+                </div> */}
             </div>      
         </div>
     );
