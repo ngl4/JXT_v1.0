@@ -190,13 +190,13 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                                     <Modal.Body>        
                                         <p></p>
                                         <div className="mb-3">
-                                            <label for="noteTakingTextArea" className="form-label">Notes</label>
+                                            <label for="noteTakingTextArea" className="form-label"><h3>Notes</h3></label>
                                             <textarea className="form-control" id="noteTakingTextArea" rows="10" value={notesOnChange} onChange={handleNotesChange}></textarea>
                                         </div>
                                         {isNotesUpdated ? handleSaveNotes() : null}
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <button onClick={hideModal}>Close</button>
+                                        <button onClick={hideModal}>Save</button>
                                     </Modal.Footer>
                                 </Modal>
                             </div>
