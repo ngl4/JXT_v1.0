@@ -21,6 +21,12 @@ console.log(todayWithDash);
 let todayDate = new Date(todayWithDash);
 console.log(todayDate);
 
+//-------------------------------------------------
+//TODO: password google oauth main step - get the client ID and secrets from the Google Developers Console and then save them into .env file
+
+//TODO: password google oauth #1 - setup the config strategy 
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
+//-------------------------------------------------
 
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
@@ -42,6 +48,27 @@ const jobAppSchema = new mongoose.Schema ({
 }); 
 
 const JobApp = mongoose.model('JobApp', jobAppSchema);
+
+//-------------------------------------------------
+// Passport Local Configuration
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//TODO: password google oauth #2
+// passport.use(new GoogleStrategy({
+//     clientID: GOOGLE_CLIENT_ID,
+//     clientSecret: GOOGLE_CLIENT_SECRET,
+//     callbackURL: "http://www.example.com/auth/google/callback"
+//   },
+//   function(accessToken, refreshToken, profile, cb) {
+//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
+//       return cb(err, user);
+//     });
+//   }
+// ));
+//-------------------------------------------------
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
