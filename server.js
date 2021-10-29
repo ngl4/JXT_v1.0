@@ -10,6 +10,8 @@ const uri = process.env.MONGODB_URI; //heroku config variable
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(require("body-parser").json());
 
+
+
 // Today Date
 let today = new Date();
 let dd = String(today.getDate()).padStart(2, '0');
@@ -21,20 +23,22 @@ console.log(todayWithDash);
 let todayDate = new Date(todayWithDash);
 console.log(todayDate);
 
+const inactiveStatus = "Inactive"; 
 //-------------------------------------------------
 //TODO: password google oauth main step - get the client ID and secrets from the Google Developers Console and then save them into .env file
 
 //TODO: password google oauth #1 - setup the config strategy 
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const findOrCreate = require('mongoose-findorcreate');
 //-------------------------------------------------
 
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
 //LIVE AWS CLOUD STORAGE - mongoosh + mongoAtlas 
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
+// mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
 
 // LOCAL STORAGE
-// mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true}) 
+mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true}) 
 
 const jobAppSchema = new mongoose.Schema ({
   companyName: String,
@@ -47,28 +51,39 @@ const jobAppSchema = new mongoose.Schema ({
   savedNotes: String
 }); 
 
+userSchema.plugin(findOrCreate);
+
 const JobApp = mongoose.model('JobApp', jobAppSchema);
 
 //-------------------------------------------------
 // Passport Local Configuration
 passport.use(User.createStrategy());
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+//-------------------------------------------------
 
 //TODO: password google oauth #2
-// passport.use(new GoogleStrategy({
-//     clientID: GOOGLE_CLIENT_ID,
-//     clientSecret: GOOGLE_CLIENT_SECRET,
-//     callbackURL: "http://www.example.com/auth/google/callback"
-//   },
-//   function(accessToken, refreshToken, profile, cb) {
-//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
-//       return cb(err, user);
-//     });
-//   }
-// ));
-//-------------------------------------------------
+passport.use(new GoogleStrategy({
+  clientID: process.env.CLIENT_ID, 
+  clientSecret: process.env.CLIENT_SECRET,
+  callbackURL: "http://www.example.com/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
@@ -88,7 +103,7 @@ app.get("/api", (req, res) => {
 app.post("/create", (req, res) => {
   console.log(req.body);
 
-  const jobApp = new JobApp ({
+  const jobApp = new JobApp ({ //TODO: Create status history - make sure to change the data types of status to savedNotes to Array []!!
     companyName: req.body.companyName,
     jobURL: req.body.jobURL,
     status: req.body.status,
@@ -126,16 +141,15 @@ app.get("/findAll/status/new", (req, res) => {
       res.send(err);
     }else {
 
-      for (let i = 0; i < foundNewJobs.length; i++) {
-        console.log(foundNewJobs[i].statusDate); 
+      for (let i = 0; i < foundNewJobs.length; i++) { //TODO: Refactor this code into a function - so it is reusable
+        console.log(foundNewJobs[i].statusDate);      //foundNewJobs, setActivePeriod, setActivePeriodText, newStatus, newLevelOfImp, newLevelOfImpOrderNum
         let enteredDate = new Date(foundNewJobs[i].statusDate); 
         let diffTime = Math.abs(todayDate - enteredDate);
         let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         console.log(diffDays); 
         if (diffDays > 7) { 
-          console.log("Not yet applied more than 7 days - set status to inactive");
+          console.log(`${"Not yet applied"} more than ${7} days - set status to inactive`);
 
-          const inactiveStatus = "Inactive"; 
           JobApp.findByIdAndUpdate(
             foundNewJobs[i]._id, 
             {
@@ -192,6 +206,17 @@ app.get("/findAll/status/interviewed", (req, res) => {
     }else {
       res.json({
         foundInterviewedJobs: foundInterviewedJobs
+      });
+    }
+  });
+});
+app.get("/findAll/status/inactive", (req, res) => {
+  JobApp.find({status: "Inactive"},(err, foundInactiveJobs) => {
+    if (err) {
+      res.send(err);
+    }else {
+      res.json({
+        foundInactiveJobs: foundInactiveJobs
       });
     }
   });
