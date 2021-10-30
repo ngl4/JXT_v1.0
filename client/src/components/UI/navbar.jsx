@@ -1,6 +1,23 @@
-import React from "react"; 
+import {React, useState} from "react";
+import Modal from "react-bootstrap/Modal";
 
 function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
+
+    const googleBackgroundStyle = {
+        "background-color" : "#dd4b39"
+    };
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const showModal = (event) => {
+        event.preventDefault();
+        console.log("click!");
+        setIsOpen(true);
+    };
+  
+    const hideModal = () => {
+      setIsOpen(false);
+    };
 
     return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -34,7 +51,22 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
                             </li> */}
                         </ul>
                         <form className="d-flex">
-                            <button className="btn btn-outline-success mx-4" type="submit">Sign On</button>
+                            <button className="btn btn-outline-success mx-4" type="submit" onClick={showModal}>Sign On</button>
+                            <Modal show={isOpen} size="xl" onHide={hideModal} scrollable="true" centered>
+                                <Modal.Header>
+                                    <Modal.Title>Log in or sign up</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>        
+                                    <div className="card social-block">
+                                        <div className="card-body d-flex flex-row justify-content-center">
+                                            <a className="btn btn-lg btn-block btn-primary" style={googleBackgroundStyle} role="button" href="/auth/google"><i className="fab fa-google"></i> Sign in with google</a>
+                                        </div>
+                                    </div>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <button onClick={hideModal}>close</button>
+                                </Modal.Footer>
+                            </Modal>
                         </form>
                     </div>
                 </div>
