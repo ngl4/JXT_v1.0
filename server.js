@@ -2,6 +2,15 @@
 require('dotenv').config();
 const path = require("path");
 const express = require("express");
+
+//-------------------------------------------------
+const session = require("express-session"); 
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const findOrCreate = require('mongoose-findorcreate');
+//-------------------------------------------------
+
 const app = express();
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3001;
@@ -9,7 +18,6 @@ const uri = process.env.MONGODB_URI; //heroku config variable
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(require("body-parser").json());
-
 
 
 // Today Date
@@ -24,13 +32,20 @@ let todayDate = new Date(todayWithDash);
 console.log(todayDate);
 
 const inactiveStatus = "Inactive"; 
-//-------------------------------------------------
-//TODO: password google oauth main step - get the client ID and secrets from the Google Developers Console and then save them into .env file
 
-//TODO: password google oauth #1 - setup the config strategy 
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require('mongoose-findorcreate');
 //-------------------------------------------------
+app.use(session({ //initialize the session
+  secret: "", 
+  resave: false,
+  saveUninitialized: false
+})); 
+
+//initialize passport 
+app.use(passport.initialize());
+//using passport to deal with/manage the session 
+app.use(passport.session()); 
+//-------------------------------------------------
+
 
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
@@ -51,12 +66,21 @@ const jobAppSchema = new mongoose.Schema ({
   savedNotes: String
 }); 
 
+const userSchema = new mongoose.Schema({
+  email: String,
+  password: String, 
+  googleId: String 
+});
+
+userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
+
+const User = mongoose.model ("User", userSchema);
 
 const JobApp = mongoose.model('JobApp', jobAppSchema);
 
 //-------------------------------------------------
-// Passport Local Configuration
+// Passport Configuration
 passport.use(User.createStrategy());
 
 passport.serializeUser(function(user, done) {
@@ -71,11 +95,11 @@ passport.deserializeUser(function(id, done) {
 
 //-------------------------------------------------
 
-//TODO: password google oauth #2
 passport.use(new GoogleStrategy({
-  clientID: process.env.CLIENT_ID, 
-  clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: "http://www.example.com/auth/google/callback"
+    clientID: process.env.CLIENT_ID, 
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/jxt",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ googleId: profile.id }, function (err, user) {
