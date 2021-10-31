@@ -2,7 +2,7 @@
 require('dotenv').config();
 const path = require("path");
 const express = require("express");
-
+const app = express();
 //-------------------------------------------------
 const session = require("express-session"); 
 const passport = require("passport");
@@ -10,9 +10,8 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 //-------------------------------------------------
-
-const app = express();
 const mongoose = require('mongoose');
+const { Console } = require('console');
 const PORT = process.env.PORT || 3001;
 const uri = process.env.MONGODB_URI; //heroku config variable
 
@@ -35,7 +34,7 @@ const inactiveStatus = "Inactive";
 
 //-------------------------------------------------
 app.use(session({ //initialize the session
-  secret: "", 
+  secret: process.env.SESSION_SECRET, 
   resave: false,
   saveUninitialized: false
 })); 
@@ -53,7 +52,7 @@ app.use(passport.session());
 // mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
 
 // LOCAL STORAGE
-mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true}) 
+mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const jobAppSchema = new mongoose.Schema ({
   companyName: String,
@@ -75,8 +74,7 @@ const userSchema = new mongoose.Schema({
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
-const User = mongoose.model ("User", userSchema);
-
+const User = new mongoose.model ("User", userSchema);
 const JobApp = mongoose.model('JobApp', jobAppSchema);
 
 //-------------------------------------------------
@@ -96,8 +94,8 @@ passport.deserializeUser(function(id, done) {
 //-------------------------------------------------
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID, 
-    clientSecret: process.env.CLIENT_SECRET,
+    clientID: process.env.GOOGLE_CLIENT_ID, 
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/google/jxt",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
@@ -107,6 +105,16 @@ passport.use(new GoogleStrategy({
     });
   }
 ));
+
+app.get("/auth/google", 
+  passport.authenticate("google", { scope : ["profile", "email"] })); 
+
+app.get("/auth/google/jxt", 
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  function(req, res) {
+    // Successful authentication, redirect jxt.
+    res.redirect("/");
+  });
 
 
 app.get('/', (req, res) => {
