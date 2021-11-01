@@ -69,9 +69,11 @@ function TrackPage() {
              <div className="row d-flex justify-content-center mb-5 mt-4">
              {/* TODO: create link to each of these sections so users can access to different views */}
                 <div className="col-2 text-center">Total Jobs <br/><p>{totalJobs.count ? totalJobs.count : "0"}</p></div>
-                <Router>
+                <div className="col-2 text-center">New<br/><p>{newJobs ? newJobs : "0"}</p></div>
+                {/* <div className="col-2 text-center"><a href="/track-page/new-jobs">New</a><br/><p>{newJobs ? newJobs : "0"}</p></div> */}
+                {/* <Router>
                     <div className="col-2 text-center" onClick = {reloadPage}><Link to="/track-page/new-jobs">New</Link><br/><p>{newJobs ? newJobs : "0"}</p></div>
-                </Router>
+                </Router> */}
                 {/* <div className="col-2 text-center">New<br/><p>{newJobs ? newJobs : "0"}</p></div>    */}
                 <div className="col-2 text-center">Applied <br/><p>{appliedJobs ? appliedJobs : "0"}</p></div>  
                 <div className="col-2 text-center">Phone Calls <br/><p>{phoneCalledJobs ? phoneCalledJobs : "0"}</p></div>  
