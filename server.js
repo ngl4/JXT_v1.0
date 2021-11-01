@@ -11,13 +11,11 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 //-------------------------------------------------
 const mongoose = require('mongoose');
-const { Console } = require('console');
 const PORT = process.env.PORT || 3001;
 const uri = process.env.MONGODB_URI; //heroku config variable
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(require("body-parser").json());
-
 
 // Today Date
 let today = new Date();
@@ -49,10 +47,10 @@ app.use(passport.session());
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
 //LIVE AWS CLOUD STORAGE - mongoosh + mongoAtlas 
-// mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
 
 // LOCAL STORAGE
-mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const jobAppSchema = new mongoose.Schema ({
   companyName: String,
@@ -74,7 +72,7 @@ const userSchema = new mongoose.Schema({
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
-const User = new mongoose.model ("User", userSchema);
+const User = mongoose.model ("User", userSchema);
 const JobApp = mongoose.model('JobApp', jobAppSchema);
 
 //-------------------------------------------------
@@ -115,7 +113,6 @@ app.get("/auth/google/jxt",
     // Successful authentication, redirect jxt.
     res.redirect("/");
   });
-
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
@@ -163,8 +160,6 @@ app.get("/findAll", (req, res) => {
     }
   });
 });
-
-
 
 //GET - Find - Specific Status Job Apps 
 app.get("/findAll/status/new", (req, res) => {
