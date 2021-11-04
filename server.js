@@ -47,10 +47,10 @@ app.use(passport.session());
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
 //LIVE AWS CLOUD STORAGE - mongoosh + mongoAtlas 
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
+// mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
 
 // LOCAL STORAGE
-// mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const jobAppSchema = new mongoose.Schema ({
   companyName: String,
@@ -94,7 +94,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID, 
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/jxt",
+    callbackURL: "https://jxt-app-v1.herokuapp.com/auth/google/jxt", //local callbackURL: http://localhost:3000/auth/google/jxt
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -111,7 +111,7 @@ app.get("/auth/google/jxt",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function(req, res) {
     // Successful authentication, redirect jxt.
-    res.redirect("/");
+    res.redirect("/track-page");
   });
 
 app.get('/', (req, res) => {
