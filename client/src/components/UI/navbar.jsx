@@ -59,11 +59,12 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
                                 <Modal.Body>        
                                     <div className="card social-block">
                                         <div className="card-body d-flex flex-row justify-content-center">
-                                            <a className="btn btn-lg btn-block btn-primary" style={googleBackgroundStyle} role="button" href="/auth/google"><i className="fab fa-google"></i> Sign in with google</a>
+                                            <a href="/auth/google" className="btn btn-block btn-social btn-google" style={googleBackgroundStyle} role="button"><span className="fa fa-google"></span> Sign in with google</a>
                                         </div>
                                     </div>
                                 </Modal.Body>
                                 <Modal.Footer>
+                                    <a className="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
                                     <button onClick={hideModal}>close</button>
                                 </Modal.Footer>
                             </Modal>

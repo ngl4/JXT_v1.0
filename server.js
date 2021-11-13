@@ -111,8 +111,22 @@ app.get("/auth/google/jxt",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function(req, res) {
     // Successful authentication, redirect jxt.
-    res.redirect("/track-page");
+    res.redirect("/secret");
   });
+
+app.get("/secret", function(req, res){
+  if (req.isAuthenticated()){
+    res.json({ message: true })
+  }else {
+    res.render("/");
+  }
+});
+
+  app.get("/logout", function(req, res){
+    req.logout(); //logout using passport 
+    res.render("/"); //root page
+});
+  //-------------------------------------------------
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));

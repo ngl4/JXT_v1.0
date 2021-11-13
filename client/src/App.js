@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import './App.css';
 import InsertPage from "./components/DataInsert/InsertPage";
 import TrackPage from "./components/Dashboard/TrackPage";
+import SecretPage from "./components/Dashboard/Secret";
 import Navbar from "./components/UI/navbar";
 import {
   BrowserRouter as Router,
@@ -11,10 +12,13 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(false);
 
   useEffect(() => {
-    fetch("/api")
+    // fetch("/api")
+    //   .then((res) => res.json())  
+    //   .then((data) => setData(data.message));  
+    fetch("/secret")
       .then((res) => res.json())  
       .then((data) => setData(data.message));  
   });
@@ -52,13 +56,16 @@ function App() {
           <Route path="/track-page" onClick = {reloadPage}>
             <TrackPage />
           </Route>
+          <Route path={ data ? "/secret" : "/"}>
+            <SecretPage />
+          </Route>
           </body>
         </Switch>
         </div>
       </Router>
       </header>
       <footer className="fixed-bottom">
-        <p className="cpText text-center mt-5">{ !data ? "Loading..." : data }</p>
+        <p className="cpText text-center mt-5">{ !data ? "Loading..." : "Found auth user" }</p>
       </footer>
     </div>
   );
