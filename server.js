@@ -129,10 +129,10 @@ app.get("/secret", function(req, res){
 });
 
   app.get("/auth/logout", function(req, res){
-    if (req.user) {
+    // if (req.user) {
       req.logout(); //logout using passport 
       res.send("Successfully logout!"); //root page
-    }
+    // }
 });
   //-------------------------------------------------
 

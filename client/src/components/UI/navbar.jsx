@@ -22,9 +22,10 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
     const logOut = () => {
         fetch ("/auth/logout")
         .then((res) => {
-            if (res.data) {
+            // if (res.data) {
             res.render('/');
-        }});  
+            //}
+        });  
     }
 
     return (
