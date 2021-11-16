@@ -19,11 +19,18 @@ function App() {
     //   .then((res) => res.json())  
     //   .then((data) => setData(data.message));  
     fetch("/secret")
-      .then((res) => res.json())  
-      .then((data) => {
-        console.log(data);
-        setData(data.message)
-      });  
+      .then((res) => {
+        console.log(res);
+        if (res) {
+         setData("true");
+        }else {
+         setData(null)
+        }
+      })  
+      // .then((data) => {
+      //   console.log(data);
+      //   setData(data.message)
+      // });  
   });
 
   const linkStyle = {

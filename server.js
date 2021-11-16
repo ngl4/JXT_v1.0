@@ -117,10 +117,12 @@ app.get("/auth/google/jxt",
 app.get("/secret", function(req, res){
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()){
-    res.json({ message: "true" });
+    res.send("success auth");
+    // res.json({ message: "true" });
     // res.render("/secret");
   }else {
-    res.json({ message: "false" })
+    res.send("failed auth");
+    // res.json({ message: "failed auth" });
     // res.render("/");
   }
 });
