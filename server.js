@@ -115,9 +115,11 @@ app.get("/auth/google/jxt",
   });
 
 app.get("/secret", function(req, res){
+  console.log(req.isAuthenticated());
   if (req.isAuthenticated()){
-    res.json({ message: true })
+    res.json({ message: "true" })
   }else {
+    res.json({ message: "false" })
     res.render("/");
   }
 });

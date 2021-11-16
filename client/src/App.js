@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const [data, setData] = useState(false);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     // fetch("/api")
@@ -56,16 +56,17 @@ function App() {
           <Route path="/track-page" onClick = {reloadPage}>
             <TrackPage />
           </Route>
-          <Route path={ data ? "/secret" : "/"}>
+          {data === "true" ? 
+          <Route path="/secret">
             <SecretPage />
-          </Route>
+          </Route> : null}
           </body>
         </Switch>
         </div>
       </Router>
       </header>
       <footer className="fixed-bottom">
-        <p className="cpText text-center mt-5">{ !data ? "Loading..." : "Found auth user" }</p>
+        <p className="cpText text-center mt-5">{ !data ? "Loading..." : data }</p>
       </footer>
     </div>
   );
