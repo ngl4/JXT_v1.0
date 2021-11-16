@@ -19,14 +19,14 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
       setIsOpen(false);
     };
 
-    const logOut = () => {
-        fetch ("/auth/logout")
-        .then((res) => {
-            // if (res.data) {
-            res.render('/');
-            //}
-        });  
-    }
+    // const logOut = () => {
+    //     fetch ("/auth/logout")
+    //     .then((res) => {
+    //         // if (res.data) {
+    //         res.render('/');
+    //         //}
+    //     });  
+    // }
 
     return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -73,7 +73,7 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
                                     </div>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <button onClick={logOut}>Log Out</button>
+                                    <a href="/auth/logout">Log Out</a>
                                     <button onClick={hideModal}>close</button>
                                 </Modal.Footer>
                             </Modal>
