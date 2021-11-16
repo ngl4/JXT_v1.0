@@ -20,7 +20,10 @@ function App() {
     //   .then((data) => setData(data.message));  
     fetch("/secret")
       .then((res) => res.json())  
-      .then((data) => setData(data.message));  
+      .then((data) => {
+        console.log(data);
+        setData(data.message)
+      });  
   });
 
   const linkStyle = {
