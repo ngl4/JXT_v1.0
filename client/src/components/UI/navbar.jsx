@@ -19,6 +19,14 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
       setIsOpen(false);
     };
 
+    const logOut = () => {
+        fetch ("/auth/logout")
+        .then((res) => {
+            if (res.data) {
+            res.render('/');
+        }});  
+    }
+
     return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div className="container-fluid p-0">
@@ -64,7 +72,7 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
                                     </div>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <a className="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
+                                    <button onClick={logOut}>Log Out</button>
                                     <button onClick={hideModal}>close</button>
                                 </Modal.Footer>
                             </Modal>
