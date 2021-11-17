@@ -107,7 +107,7 @@ passport.use(new GoogleStrategy({
 app.get("/auth/google", 
   passport.authenticate("google", { scope : ["profile", "email"] })); 
 
-app.get("https://jxt-app-v1.herokuapp.com/auth/google/jxt", 
+app.get("/auth/google/jxt", 
   passport.authenticate("google", { failureRedirect: "/" }),
   function(req, res) {
     // Successful authentication, redirect jxt.
