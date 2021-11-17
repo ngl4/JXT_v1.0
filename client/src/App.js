@@ -82,7 +82,7 @@ function App() {
       </Router>
       </header>
       <footer className="fixed-bottom">
-        <p className="cpText text-center mt-5">{ !data ? "Loading..." : data }</p>
+        <p className="cpText text-center mt-5">{ !data ? "Loading..." : "user authenticated" }</p>
       </footer>
     </div>
   );
