@@ -122,6 +122,8 @@ app.get("/secret", function(req, res){
       user: req.user,
       cookies: req.cookies
     });
+  }else {
+    res.send("user is not yet authenticated to enter this page!");
   }
   // console.log(req.isAuthenticated());
   // if (req.isAuthenticated()){
@@ -138,9 +140,12 @@ app.get("/secret", function(req, res){
 
   app.get("/auth/logout", function(req, res){
     if (req.user) {
-      req.session = null;
+      req.session.destroy();
+      // req.session = null;
       req.logout();
       res.redirect('/');
+    }else {
+      res.send("user is already logged out!");
     }
     // if (req.user) {
       // req.logout(); //logout using passport 
@@ -157,6 +162,13 @@ app.get('/enter-page', (req, res) => {
 });
 app.get('/track-page', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+app.get('/secret-page', (req, res) => {
+  if (req.user) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  }else {
+    res.send("user is not yet authenticated to enter this page!");
+  }
 });
 
 // API ENDPOINT

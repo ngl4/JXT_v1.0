@@ -20,7 +20,10 @@ function App() {
     //   .then((data) => setData(data.message));  
     fetch("/secret")
       .then((res) => res.json())
-      .then((data) => setData(data.success));
+      .then((data) => {
+        console.log(data);
+        setData(data.success)
+      });
       // .then((res) => {
       //   console.log(res);
       //   if (res) {
@@ -69,9 +72,10 @@ function App() {
             <TrackPage />
           </Route>
           {data === "true" ? 
-          <Route path="/secret">
+          <Route path="/secret-page">
             <SecretPage />
-          </Route> : null}
+          </Route> 
+          : null}
           </body>
         </Switch>
         </div>
