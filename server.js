@@ -108,30 +108,40 @@ app.get("/auth/google",
   passport.authenticate("google", { scope : ["profile", "email"] })); 
 
 app.get("/auth/google/jxt", 
-  passport.authenticate("google", { failureRedirect: "/login" }),
+  passport.authenticate("google", { failureRedirect: "/" }),
   function(req, res) {
     // Successful authentication, redirect jxt.
-    res.redirect("/secret");
+    res.redirect("/track-page");
   });
 
 app.get("/secret", function(req, res){
-  console.log(req.isAuthenticated());
-  if (req.isAuthenticated()){
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-    // res.send("successful auth");
-    // res.json({ message: "true" });
-    // res.render("/secret");
-  }else {
-    res.send("FAILED AUTHENTICATION");
-    // res.json({ message: "failed auth" });
-    // res.render("/");
+  if (req.user) {
+    res.json({
+      success: true,
+      message: "user has successfully authenticated",
+      user: req.user,
+      cookies: req.cookies
+    });
   }
+  // console.log(req.isAuthenticated());
+  // if (req.isAuthenticated()){
+  //   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  //   // res.send("successful auth");
+  //   // res.json({ message: "true" });
+  //   // res.render("/secret");
+  // }else {
+  //   res.send("FAILED AUTHENTICATION");
+  //   // res.json({ message: "failed auth" });
+  //   // res.render("/");
+  // }
 });
 
   app.get("/auth/logout", function(req, res){
-    req.session = null;
-    req.logout();
-    res.redirect('/');
+    if (req.user) {
+      req.session = null;
+      req.logout();
+      res.redirect('/');
+    }
     // if (req.user) {
       // req.logout(); //logout using passport 
       // res.send("Successfully logout!"); //root page
