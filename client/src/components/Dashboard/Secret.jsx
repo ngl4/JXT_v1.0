@@ -2,12 +2,13 @@ import React from "react";
 
 function Secret() {
     return(
-        <div className="mt-5 pt-3">
+        <div className="container">
+            <div className="mt-5 pt-3">
 
-            UNDER DEVELOPMENT [TESTING ONLY] 
-            <br />
-             YOU ARE LOG IN NOW! CLICK ON SIGN ON AND YOU SHOULD SEE A LOGOUT BUTTON TO LOG OUT! 
-
+                UNDER DEVELOPMENT [TESTING ONLY] 
+                <br />
+                YOU ARE LOG IN NOW! CLICK ON SIGN ON AND YOU SHOULD SEE A LOGOUT BUTTON TO LOG OUT! 
+            </div>
         </div>
     )
 }

@@ -3,6 +3,7 @@ require('dotenv').config();
 const path = require("path");
 const express = require("express");
 const app = express();
+// const router = express.Router();
 //-------------------------------------------------
 const session = require("express-session"); 
 const passport = require("passport");
@@ -13,9 +14,6 @@ const findOrCreate = require('mongoose-findorcreate');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3001;
 const uri = process.env.MONGODB_URI; //heroku config variable
-
-app.use(express.static(path.join(__dirname, 'build')));
-app.use(require("body-parser").json());
 
 // Today Date
 let today = new Date();
@@ -43,14 +41,16 @@ app.use(passport.initialize());
 app.use(passport.session()); 
 //-------------------------------------------------
 
+app.use(express.static(path.join(__dirname, 'build')));
+app.use(require("body-parser").json());
 
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
 //LIVE AWS CLOUD STORAGE - mongoosh + mongoAtlas 
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
+// mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
 
 // LOCAL STORAGE
-// mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const jobAppSchema = new mongoose.Schema ({
   companyName: String,
@@ -94,11 +94,13 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID, 
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://jxt-app-v1.herokuapp.com/auth/google/jxt", //local callbackURL: http://localhost:3000/auth/google/jxt
+    // callbackURL: "https://jxt-app-v1.herokuapp.com/auth/google/jxt", //Live 
+    callbackURL: "http://localhost:3001/auth/google/jxt", //Local
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    console.log(profile);
+    User.findOrCreate({ googleId: profile.id, email: profile.emails[0].value }, function (err, user) {
       return cb(err, user);
     });
   }
@@ -111,7 +113,7 @@ app.get("/auth/google/jxt",
   passport.authenticate("google", { failureRedirect: "/" }),
   function(req, res) {
     // Successful authentication, redirect jxt.
-    res.redirect("/track-page");
+    res.redirect("http://localhost:3000/secret-page");
   });
 
 app.get("/secret", function(req, res){
@@ -165,6 +167,7 @@ app.get('/track-page', (req, res) => {
 });
 app.get('/secret-page', (req, res) => {
   if (req.user) {
+    console.log("Hello");
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   }else {
     res.send("user is not yet authenticated to enter this page!");

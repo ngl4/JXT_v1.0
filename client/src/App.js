@@ -71,7 +71,7 @@ function App() {
           <Route path="/track-page" onClick = {reloadPage}>
             <TrackPage />
           </Route>
-          {data === "true" ? 
+          {data === true ? 
           <Route path="/secret-page">
             <SecretPage />
           </Route> 

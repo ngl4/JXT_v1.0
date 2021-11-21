@@ -68,12 +68,15 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
                                 <Modal.Body>        
                                     <div className="card social-block">
                                         <div className="card-body d-flex flex-row justify-content-center">
-                                            <a href="/auth/google" className="btn btn-block btn-social btn-google" style={googleBackgroundStyle} role="button"><span className="fa fa-google"></span> Sign in with google</a>
+                                            {/* LIVE */}
+                                            {/* <a href="/auth/google" className="btn btn-block btn-social btn-google" style={googleBackgroundStyle} role="button"><span className="fa fa-google"></span> Sign in with google</a> */}
+                                            {/* LOCAL */}
+                                            <a href="http://localhost:3001/auth/google" className="btn btn-block btn-social btn-google" style={googleBackgroundStyle} role="button"><span className="fa fa-google"></span> Sign in with google</a>
                                         </div>
                                     </div>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <a href="/auth/logout">Log Out</a>
+                                    <a href="http://localhost:3001/auth/logout">Log Out</a>
                                     <button onClick={hideModal}>close</button>
                                 </Modal.Footer>
                             </Modal>
