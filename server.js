@@ -14,6 +14,9 @@ const findOrCreate = require('mongoose-findorcreate');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3001;
 const uri = process.env.MONGODB_URI; //heroku config variable
+const cors = require("cors"); 
+// const CLIENT_HOME_PAGE_URL = "https://jxt-app-v1.herokuapp.com"; //Live 
+const CLIENT_HOME_PAGE_URL = "http://localhost:3000"; //Local 
 
 // Today Date
 let today = new Date();
@@ -44,6 +47,16 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(require("body-parser").json());
 
+// set up cors to allow us to accept requests from our client
+//CREDIT TO: https://medium.com/free-code-camp/how-to-set-up-twitter-oauth-using-passport-js-and-reactjs-9ffa6f49ef0
+app.use(
+  cors({
+    origin: CLIENT_HOME_PAGE_URL, //allow to server to accept request from different origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true // allow session cookie from browser to pass through
+  })
+);
+
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
 //LIVE AWS CLOUD STORAGE - mongoosh + mongoAtlas 
@@ -64,9 +77,11 @@ const jobAppSchema = new mongoose.Schema ({
 }); 
 
 const userSchema = new mongoose.Schema({
-  email: String,
-  password: String, 
-  googleId: String 
+  googleId: String,
+  username: String,
+  fullname: String,
+  firstname: String,
+  profileImgUrl: String  
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -100,7 +115,13 @@ passport.use(new GoogleStrategy({
   },
   function(accessToken, refreshToken, profile, cb) {
     console.log(profile);
-    User.findOrCreate({ googleId: profile.id, email: profile.emails[0].value }, function (err, user) {
+    User.findOrCreate({ 
+      googleId: profile.id, 
+      username: profile._json.email,
+      fullname: profile._json.name,
+      firstname: profile._json.given_name,
+      profileImgUrl: profile._json.picture
+    }, function (err, user) {
       return cb(err, user);
     });
   }
@@ -113,7 +134,8 @@ app.get("/auth/google/jxt",
   passport.authenticate("google", { failureRedirect: "/" }),
   function(req, res) {
     // Successful authentication, redirect jxt.
-    res.redirect("http://localhost:3000/secret-page");
+    // res.redirect("/secret-page"); //Live
+    res.redirect("http://localhost:3000/secret-page"); //Local
   });
 
 app.get("/secret", function(req, res){
@@ -127,17 +149,6 @@ app.get("/secret", function(req, res){
   }else {
     res.send("user is not yet authenticated to enter this page!");
   }
-  // console.log(req.isAuthenticated());
-  // if (req.isAuthenticated()){
-  //   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  //   // res.send("successful auth");
-  //   // res.json({ message: "true" });
-  //   // res.render("/secret");
-  // }else {
-  //   res.send("FAILED AUTHENTICATION");
-  //   // res.json({ message: "failed auth" });
-  //   // res.render("/");
-  // }
 });
 
   app.get("/auth/logout", function(req, res){
@@ -145,7 +156,7 @@ app.get("/secret", function(req, res){
       req.session.destroy();
       // req.session = null;
       req.logout();
-      res.redirect('/');
+      res.redirect(CLIENT_HOME_PAGE_URL);
     }else {
       res.send("user is already logged out!");
     }
@@ -167,7 +178,6 @@ app.get('/track-page', (req, res) => {
 });
 app.get('/secret-page', (req, res) => {
   if (req.user) {
-    console.log("Hello");
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   }else {
     res.send("user is not yet authenticated to enter this page!");

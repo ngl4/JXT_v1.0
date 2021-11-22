@@ -5,7 +5,7 @@ function Secret() {
         <div className="container">
             <div className="mt-5 pt-3">
 
-                UNDER DEVELOPMENT [TESTING ONLY] 
+                <strong>UNDER DEVELOPMENT [TESTING ONLY]</strong> 
                 <br />
                 YOU ARE LOG IN NOW! CLICK ON SIGN ON AND YOU SHOULD SEE A LOGOUT BUTTON TO LOG OUT! 
             </div>

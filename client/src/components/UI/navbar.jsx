@@ -19,14 +19,15 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
       setIsOpen(false);
     };
 
-    // const logOut = () => {
-    //     fetch ("/auth/logout")
-    //     .then((res) => {
-    //         // if (res.data) {
-    //         res.render('/');
-    //         //}
-    //     });  
-    // }
+    const handleSignInGoogle = () => {
+        // window.open("https://jxt-app-v1.herokuapp.com/auth/google", "_self");  //Live
+        window.open("http://localhost:3001/auth/google", "_self");  //Local  
+    }
+
+    const handleLogOutGoogle = () => {
+        // window.open("https://jxt-app-v1.herokuapp.com/auth/logout", "_self");  //Live
+        window.open("http://localhost:3001/auth/logout", "_self");  //Local
+    }
 
     return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -68,15 +69,12 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
                                 <Modal.Body>        
                                     <div className="card social-block">
                                         <div className="card-body d-flex flex-row justify-content-center">
-                                            {/* LIVE */}
-                                            {/* <a href="/auth/google" className="btn btn-block btn-social btn-google" style={googleBackgroundStyle} role="button"><span className="fa fa-google"></span> Sign in with google</a> */}
-                                            {/* LOCAL */}
-                                            <a href="http://localhost:3001/auth/google" className="btn btn-block btn-social btn-google" style={googleBackgroundStyle} role="button"><span className="fa fa-google"></span> Sign in with google</a>
+                                            <button onClick={handleSignInGoogle} className="btn btn-block btn-social btn-google" style={googleBackgroundStyle}><span className="fa fa-google"></span> Sign in with google</button>
                                         </div>
                                     </div>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <a href="http://localhost:3001/auth/logout">Log Out</a>
+                                    <button onClick={handleLogOutGoogle}>Log Out</button>
                                     <button onClick={hideModal}>close</button>
                                 </Modal.Footer>
                             </Modal>

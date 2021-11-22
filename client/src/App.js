@@ -3,6 +3,7 @@ import './App.css';
 import InsertPage from "./components/DataInsert/InsertPage";
 import TrackPage from "./components/Dashboard/TrackPage";
 import SecretPage from "./components/Dashboard/Secret";
+import Error401Page from "./components/Dashboard/Error401Page";
 import Navbar from "./components/UI/navbar";
 import {
   BrowserRouter as Router,
@@ -23,19 +24,7 @@ function App() {
       .then((data) => {
         console.log(data);
         setData(data.success)
-      });
-      // .then((res) => {
-      //   console.log(res);
-      //   if (res) {
-      //    setData("true");
-      //   }else {
-      //    setData(null)
-      //   }
-      // })  
-      // .then((data) => {
-      //   console.log(data);
-      //   setData(data.message)
-      // });  
+      }); 
   });
 
   const linkStyle = {
@@ -71,18 +60,16 @@ function App() {
           <Route path="/track-page" onClick = {reloadPage}>
             <TrackPage />
           </Route>
-          {data === true ? 
           <Route path="/secret-page">
-            <SecretPage />
+            {data !== true ? <Error401Page />: <SecretPage />}
           </Route> 
-          : null}
           </body>
         </Switch>
         </div>
       </Router>
       </header>
       <footer className="fixed-bottom">
-        <p className="cpText text-center mt-5">{ !data ? "Loading..." : "user authenticated" }</p>
+        <p className="cpText text-center mt-5">{ data !== true ? "Loading..." : "user authenticated" }</p>
       </footer>
     </div>
   );
