@@ -177,11 +177,11 @@ app.get('/track-page', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 app.get('/secret-page', (req, res) => {
-  if (req.user) {
+  // if (req.user) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  }else {
-    res.send("user is not yet authenticated to enter this page!");
-  }
+  // }else {
+    // res.send("user is not yet authenticated to enter this page!");
+  // }
 });
 
 // API ENDPOINT
