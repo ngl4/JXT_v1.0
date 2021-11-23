@@ -14,7 +14,7 @@ const findOrCreate = require('mongoose-findorcreate');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3001;
 const uri = process.env.MONGODB_URI; //heroku config variable
-const cors = require("cors"); 
+// const cors = require("cors"); 
 const CLIENT_HOME_PAGE_URL = "https://jxt-app-v1.herokuapp.com"; //Live 
 // const CLIENT_HOME_PAGE_URL = "http://localhost:3000"; //(Local) 
 
@@ -49,13 +49,13 @@ app.use(require("body-parser").json());
 
 // set up cors to allow us to accept requests from our client
 //CREDIT TO: https://medium.com/free-code-camp/how-to-set-up-twitter-oauth-using-passport-js-and-reactjs-9ffa6f49ef0
-app.use(
-  cors({
-    origin: CLIENT_HOME_PAGE_URL, //allow to server to accept request from different origin
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true // allow session cookie from browser to pass through
-  })
-);
+// app.use(
+//   cors({
+//     origin: CLIENT_HOME_PAGE_URL, //allow to server to accept request from different origin
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     credentials: true // allow session cookie from browser to pass through
+//   })
+// );
 
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
