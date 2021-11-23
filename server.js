@@ -15,8 +15,8 @@ const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3001;
 const uri = process.env.MONGODB_URI; //heroku config variable
 const cors = require("cors"); 
-// const CLIENT_HOME_PAGE_URL = "https://jxt-app-v1.herokuapp.com"; //Live 
-const CLIENT_HOME_PAGE_URL = "http://localhost:3000"; //Local 
+const CLIENT_HOME_PAGE_URL = "https://jxt-app-v1.herokuapp.com"; //Live 
+// const CLIENT_HOME_PAGE_URL = "http://localhost:3000"; //(Local) 
 
 // Today Date
 let today = new Date();
@@ -60,10 +60,10 @@ app.use(
 //console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
 //LIVE AWS CLOUD STORAGE - mongoosh + mongoAtlas 
-// mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
 
-// LOCAL STORAGE
-mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true});
+// LOCAL STORAGE  //(Local) 
+// mongoose.connect('mongodb://localhost:27017/jxtrackDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const jobAppSchema = new mongoose.Schema ({
   companyName: String,
@@ -109,8 +109,8 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID, 
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    // callbackURL: "https://jxt-app-v1.herokuapp.com/auth/google/jxt", //Live 
-    callbackURL: "http://localhost:3001/auth/google/jxt", //Local
+    callbackURL: "https://jxt-app-v1.herokuapp.com/auth/google/jxt", //Live 
+    // callbackURL: "http://localhost:3001/auth/google/jxt",  //(Local) 
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -134,8 +134,8 @@ app.get("/auth/google/jxt",
   passport.authenticate("google", { failureRedirect: "/" }),
   function(req, res) {
     // Successful authentication, redirect jxt.
-    // res.redirect("/secret-page"); //Live
-    res.redirect("http://localhost:3000/secret-page"); //Local
+    res.redirect("/secret-page"); //Live
+    // res.redirect("http://localhost:3000/secret-page");  //(Local) 
   });
 
 app.get("/secret", function(req, res){
