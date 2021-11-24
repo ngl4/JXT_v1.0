@@ -46,7 +46,7 @@ function App() {
           <Navbar
             RouterLinkHome = {<Link to="/" style={linkStyle}>JXT Job Tracker</Link>}
             RouterLinkEnter = {<Link to="/enter-page" style={linkStyle}>Enter</Link>}
-            RouterLinkTrack = {<Link to="/track-page" style={linkStyle}>Track</Link>}
+            RouterLinkTrack = {<Link to={data !== true ? "/track-page" : "/secret-page"} style={linkStyle}>Track</Link>}
           />
         <Switch>
         <body className="row d-flex justify-content-center align-items-center mt-5">
