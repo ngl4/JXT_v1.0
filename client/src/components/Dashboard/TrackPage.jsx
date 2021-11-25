@@ -53,17 +53,6 @@ function TrackPage() {
         });
     }
 
-    // const lineBreakStyle = {
-    //     height:"2px",
-    //     "border-width": 0,
-    //     color: "gray",
-    //     "background-color": "green"
-    // }
-
-    const reloadPage = () => { 
-        window.location.reload(); 
-    }
-
     return (
         <div className="container">
              <div className="row d-flex justify-content-center mb-5 mt-4">
@@ -95,9 +84,9 @@ function TrackPage() {
                     </Route>
                     <Route>
                         <div className="col">
-                        {totalJobs.data.sort((a, b) => {
-                            return a.levelOfImpOrderNum - b.levelOfImpOrderNum;
-                        }).map((job) => (
+                            {totalJobs.data.sort((a, b) => {
+                                return a.levelOfImpOrderNum - b.levelOfImpOrderNum;
+                            }).map((job) => (
                                 <JobCard 
                                     key = {job._id}
                                     companyName = {job.companyName}
