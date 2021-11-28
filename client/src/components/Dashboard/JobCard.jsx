@@ -3,9 +3,9 @@ import Modal from "react-bootstrap/Modal";
 
 function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatus, currentStatusSetDate, currentStatusVerbiage, savedNotes}) {
     const cardWidthMargin = {
-        "width": "850px",
-        "margin-left": "3rem",
-        "margin-right": "3rem"
+        "width": "50rem",
+        "margin-left": "1rem",
+        "margin-right": "1rem"
       };
 
     const [levelOfImpColor, setLevelOfImpColor] = useState(""); 
@@ -124,7 +124,7 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
     };
 
     return (
-        <div className="d-flex justify-content-left">
+        <div className="d-flex justify-content-center">
             <div className="card border-success mb-3" style={cardWidthMargin}>
                 <div className="card-body text-success">
                     <div className="d-flex justify-content-between">
@@ -154,7 +154,7 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                 <div className="card-footer bg-transparent border-success m-0 p-1">
                     <div className="container">
                         <div className="d-flex row justify-content-between">
-                            <div className="col-10">
+                            <div className="col-11">
                                 <div className="row g-3">
                                     <div className="col-sm-3">
                                         <input type="text" className="form-control" placeholder="New Status" aria-label="New Status" name="newStatus" value={newStatus} onChange={handleChange} />
@@ -176,30 +176,32 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                                             className="btn btn-outline-secondary border-0"
                                             type = "submit"
                                             value = "Update Status" 
-                                            onClick = {handleUpdateStatusClicked}>Update Status</button>       
+                                            onClick = {handleUpdateStatusClicked}>Update Status</button>    
+                                    </div>
+                                    <div className="col-sm">
+                                        <button className="btn" onClick={showModal}>Details</button>   
                                     </div>
                                 </div>
                             </div>
                             {isLevelUpdated ? updateJobImp() : null}
-                            <div className="col-2 d-flex flex-row-reverse">
-                                <button className="btn" onClick={showModal}>Details</button>
-                                <Modal show={isOpen} size="xl" onHide={hideModal} scrollable="true" centered>
-                                    <Modal.Header>
-                                        <Modal.Title>{companyName}</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>        
-                                        <p></p>
-                                        <div className="mb-3">
-                                            <label for="noteTakingTextArea" className="form-label"><h3>Notes</h3></label>
-                                            <textarea className="form-control" id="noteTakingTextArea" rows="10" value={notesOnChange} onChange={handleNotesChange}></textarea>
-                                        </div>
-                                        {isNotesUpdated ? handleSaveNotes() : null}
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <button onClick={hideModal}>Save</button>
-                                    </Modal.Footer>
-                                </Modal>
-                            </div>
+                            {/* <div className="col-2 d-flex flex-row-reverse"> */}
+                            <Modal show={isOpen} size="xl" onHide={hideModal} scrollable="true" centered>
+                                <Modal.Header>
+                                    <Modal.Title>{companyName}</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>        
+                                    <p></p>
+                                    <div className="mb-3">
+                                        <label for="noteTakingTextArea" className="form-label"><h3>Notes</h3></label>
+                                        <textarea className="form-control" id="noteTakingTextArea" rows="10" value={notesOnChange} onChange={handleNotesChange}></textarea>
+                                    </div>
+                                    {isNotesUpdated ? handleSaveNotes() : null}
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <button onClick={hideModal}>Save</button>
+                                </Modal.Footer>
+                            </Modal>
+                            {/* </div> */}
                         </div>
                     </div>
                 </div>
