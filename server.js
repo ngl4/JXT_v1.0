@@ -71,7 +71,16 @@ const userSchema = new mongoose.Schema({
   username: String,
   fullname: String,
   firstname: String,
-  profileImgUrl: String  
+  profileImgUrl: String, 
+  jobApps: [{
+    companyName: String,
+    jobSource: String,
+    jobURL: String,
+    status: String,
+    statusDate: String,
+    pinned: Boolean,
+    savedNotes: String
+  }] 
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -141,7 +150,7 @@ app.get("/secret", function(req, res){
   }
 });
 
-  app.get("/auth/logout", function(req, res){
+app.get("/auth/logout", function(req, res){
     if (req.user) {
       req.session.destroy();
       // req.session = null;
@@ -166,11 +175,10 @@ app.get('/secret-page', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// API ENDPOINT
+// PUBLIC API ENDPOINTS (NO AUTHENTICATION NEEDED)
 app.get("/api", (req, res) => {
     res.json({ message: "JXT 2021" });
   });
-
 app.post("/create", (req, res) => {
   console.log(req.body);
 
@@ -189,7 +197,6 @@ app.post("/create", (req, res) => {
 
   res.json({message: "Successfully Saved To Your Job Track World!"});
 });
-
 //GET - FindAll - Total Inserted Job Apps 
 app.get("/findAll", (req, res) => {
   JobApp.find((err, foundAllJobs) => {
@@ -202,7 +209,6 @@ app.get("/findAll", (req, res) => {
     }
   });
 });
-
 //GET - Find - Specific Status Job Apps 
 app.get("/findAll/status/new", (req, res) => {
   JobApp.find({status: "New"},(err, foundNewJobs) => {
@@ -311,7 +317,6 @@ app.patch("/updateJobImp", (req, res) => {
       }
     })
 });
-
 //PATCH - Update the specific fields in a field 
 app.patch("/updateJobStatus", (req, res) => {
   JobApp.findByIdAndUpdate(
@@ -332,7 +337,6 @@ app.patch("/updateJobStatus", (req, res) => {
       }
     })
 });
-
 //PATCH - Update the specific fields in a field 
 app.patch("/saveNotes", (req, res) => {
   JobApp.findByIdAndUpdate(
