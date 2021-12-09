@@ -73,13 +73,25 @@ const userSchema = new mongoose.Schema({
   firstname: String,
   profileImgUrl: String, 
   jobApps: [{
+    appId: String,
     companyName: String,
     jobSource: String,
+    jobType: String, //onsite, remote, or hybrid
+    jobLocation: String, //state (US), city & country (Worldwide)
     jobURL: String,
-    status: String,
-    statusDate: String,
+    status: [{ //most recent status is always the last index of the array 
+      name: String,
+      date: Date
+    }],
     pinned: Boolean,
-    savedNotes: String
+    savedNotes: [{
+      date: Date,
+      note: String
+    }],
+    customFields: [{ //custom table fields that the user can create ie, job_description, salary, benefits, culture, Recruiter_contact, etc.
+      fieldTitle: String,
+      fieldContent: String
+    }]
   }] 
 });
 
