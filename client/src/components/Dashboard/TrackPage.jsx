@@ -5,7 +5,7 @@ import {
     Route,
     Link
   } from "react-router-dom";
-import JobCard from "./JobCard";
+import JobCard from "../JobCard/JobCard";
 import SubTrackPage1 from "./SubTrackPage1";
 
 function TrackPage() {
