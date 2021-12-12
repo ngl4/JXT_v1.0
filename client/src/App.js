@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import './App.css';
 import InsertPage from "./components/DataInsert/InsertPage";
 import TrackPage from "./components/Dashboard/TrackPage";
+import SecretEnterPage from "./components/DataInsert/SecretEnterPage";
 import SecretTrackPage from "./components/Dashboard/SecretTrackPage";
 import Error401Page from "./components/Dashboard/Error401Page";
 import Navbar from "./components/UI/navbar";
@@ -55,7 +56,7 @@ function App() {
             <TrackPage />
           </Route>
           <Route path="/enter-page">
-            <InsertPage />
+            {data !== true ? <InsertPage /> : <SecretEnterPage />}
           </Route>
           <Route path="/track-page" onClick = {reloadPage}>
             <TrackPage />
