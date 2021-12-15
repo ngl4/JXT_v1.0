@@ -66,7 +66,8 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
                                 <Modal.Header>
                                     <Modal.Title>Log in or sign up</Modal.Title>
                                 </Modal.Header>
-                                <Modal.Body>        
+                                <Modal.Body>   
+                                     {/* Use this icon link https://ionic.io/ionicons to insert the Google logo Icon next to the sign in text */}
                                     <div className="card social-block">
                                         <div className="card-body d-flex flex-row justify-content-center">
                                             <button onClick={handleSignInGoogle} className="btn btn-block btn-social btn-google" style={googleBackgroundStyle}><span className="fa fa-google"></span> Sign in with google</button>
