@@ -20,13 +20,13 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
     };
 
     const handleSignInGoogle = () => {
-        window.open("https://jxt-app-v1.herokuapp.com/auth/google", "_self");  //Live
-        // window.open("http://localhost:3001/auth/google", "_self");   //(Local)   
+        // window.open("https://jxt-app-v1.herokuapp.com/auth/google", "_self");  //Live
+        window.open("http://localhost:3001/auth/google", "_self");   //(Local)   
     }
 
     const handleLogOutGoogle = () => {
-        window.open("https://jxt-app-v1.herokuapp.com/auth/logout", "_self");  //Live
-        // window.open("http://localhost:3001/auth/logout", "_self");   //(Local) 
+        // window.open("https://jxt-app-v1.herokuapp.com/auth/logout", "_self");  //Live
+        window.open("http://localhost:3001/auth/logout", "_self");   //(Local) 
     }
 
     return (
