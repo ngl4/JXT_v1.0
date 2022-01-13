@@ -164,6 +164,58 @@ function SecretEnterPage() {
                         /> 
                     </div>
                 </div>
+                 {/* Input Job Title */}
+                <div className = "row mb-3 d-flex justify-content-center">
+                    <label className="col-sm-2 col-form-label">Job Title</label>
+                    <div className="col-sm-2">
+                    <Input 
+                        name = "jobTitle"
+                        type = "title"
+                        onChange = {handleChange}
+                        placeholder = "Enter Title"
+                        // value = {jobTitle}
+                    />   
+                    </div>
+                </div>                               
+                 {/* Input Job Source */}
+                 <div className = "row mb-3 d-flex justify-content-center">
+                    <label className="col-6 col-form-label text-end">Job Source</label>
+                    <div className="col-6">
+                    <Input 
+                        name = "jobSource"
+                        type = "source"
+                        onChange = {handleChange}
+                        placeholder = "Enter Source"
+                        // value = {jobSource}
+                    />   
+                    </div>
+                </div>               
+                {/* Input Job Type */}
+                <div className = "row mb-3 d-flex justify-content-center">
+                    <label className="col-6 col-form-label text-end">Job Type</label>
+                    <div className="col-6">
+                    <Input 
+                        name = "jobType"
+                        type = "type"
+                        onChange = {handleChange}
+                        placeholder = "Enter Type"
+                        // value = {jobType}
+                    />   
+                    </div>
+                </div>                
+                {/* Input Job Location */}
+                <div className = "row mb-3 d-flex justify-content-center">
+                    <label className="col-6 col-form-label text-end">Job Location</label>
+                    <div className="col-6">
+                    <Input 
+                        name = "jobLocation"
+                        type = "location"
+                        onChange = {handleChange}
+                        placeholder = "Enter Location"
+                        // value = {jobLocation}
+                    />   
+                    </div>
+                </div>
                 {/* Input Job Post URL */}
                 <div className = "row mb-3 d-flex justify-content-center">
                     <label className="col-6 col-form-label text-end">Job Post URL</label>
@@ -176,20 +228,7 @@ function SecretEnterPage() {
                         value = {jobURL}
                     />   
                     </div>
-                </div>
-                {/* Input Job Title */}
-                {/* <div className = "row mb-3 d-flex justify-content-center">
-                    <label className="col-sm-2 col-form-label">Job Post URL</label>
-                    <div className="col-sm-2">
-                    <Input 
-                        name = "jobURL"
-                        type = "url"
-                        onChange = {handleChange}
-                        placeholder = "Enter URL"
-                        value = {jobURL}
-                    />   
-                    </div>
-                </div>                 */}
+                </div>                
                 {/*Checkbox Status - New, Applied, Phone-Called, Interviewed */}
                 <div className = "column mt-4 mb-4 d-flex justify-content-center">
                     <div className="form-check form-check-inline">
