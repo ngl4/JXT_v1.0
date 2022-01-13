@@ -75,7 +75,8 @@ const userSchema = new mongoose.Schema({
   jobApps: [{
     appId: String,
     companyName: String,
-    jobSource: String,
+    jobTitle: String,
+    jobSource: String, //recruiter, online, referral
     jobType: String, //onsite, remote, or hybrid
     jobLocation: String, //state (US), city & country (Worldwide)
     jobURL: String,
