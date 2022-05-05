@@ -23,7 +23,7 @@ function App() {
         //console.log(data);
         setData(data.success)
       }); 
-  });
+  }, []);
 
   const linkStyle = {
     margin: "0rem",

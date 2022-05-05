@@ -21,7 +21,7 @@ function App() {
         }
         console.log(data.allUsers); 
       });  
-  });
+  }, []);
 
   return (
     <div className="container-fluid">

@@ -42,7 +42,7 @@ function TrackPage() {
         .then((data) => {
             setInterviewedJobs((data.foundInterviewedJobs).length)
         });        
-    });
+    }, []);
 
     const loadAllJobs = async () => {
         const response = await fetch("/findAll");
