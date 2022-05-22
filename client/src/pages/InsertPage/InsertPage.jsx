@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "../UI/input";
+import Input from "../../components/Input/input";
 
 function InsertPage() {
     const [companyName, setCompanyName] = useState("");
