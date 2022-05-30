@@ -5,8 +5,8 @@ import {
     Route,
     Link
   } from "react-router-dom";
-import JobCard from "../JobCard/JobCard";
-import SubTrackPage1 from "./SubTrackPage1";
+import JobCard from "../../pages/TrackPage/JobCard/JobCard";
+import SubTrackPage1 from "../TrackPage/(beta) SubTrackPage/SubTrackPage1";
 
 function TrackPage() {
     const [totalJobs, setTotalJobs] = useState({
