@@ -44,21 +44,6 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
                             <li className="nav-item">
                                 <span className="nav-link text-light mx-2" name="enter-jobs" id="enter-jobs">{RouterLinkTrack}</span>
                             </li>
-                            {/* Dropdown Option */}
-                            {/* <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="/track-jobs" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Track
-                                </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="/track-jobs/general">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li><hr className="dropdown-divider" /></li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                            </li> */}
                         </ul>
                         <form className="d-flex">
                             <button className="btn btn-outline-success mx-4" type="submit" onClick={showModal}>Sign On</button>
