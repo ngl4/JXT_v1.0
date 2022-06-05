@@ -1,43 +1,20 @@
 import React, {useState, useEffect} from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
-import JobCard from "./JobCard";
+import JobCard from "../JobCard/JobCard";
 
 function SubTrackPage1() {
-    const [newJobs, setNewJobs] = useState({
-        count: 0,
-        data: []
-    }); 
+    const [newJobs, setNewJobs] = useState([]); 
     useEffect(() => {
-
-
         fetch("/findAll/status/new")
         .then((res) => res.json())  
         .then((data) => {
-            setNewJobs({
-                count: data.foundNewJobs.length,
-                data: data.foundNewJobs
-            });
+            setNewJobs(data.foundNewJobs);
         });  
- 
-    });
-
-
-    // const lineBreakStyle = {
-    //     height:"2px",
-    //     "border-width": 0,
-    //     color: "gray",
-    //     "background-color": "green"
-    // }
+    }, []);
 
     return (
 
         <div className="col">
-        {newJobs.data.sort((a, b) => {
+        {newJobs.sort((a, b) => {
             return a.levelOfImpOrderNum - b.levelOfImpOrderNum;
         }).map((job) => (
                 <JobCard 
