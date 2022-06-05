@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from "react";
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
-    Link
   } from "react-router-dom";
 import JobCard from "../../pages/TrackPage/JobCard/JobCard";
-import SubTrackPage1 from "../TrackPage/(beta) SubTrackPage/SubTrackPage1";
+// import SubTrackPage1 from "../TrackPage/(beta) SubTrackPage/SubTrackPage1";
 
 function TrackPage() {
     const [totalJobs, setTotalJobs] = useState({
@@ -79,9 +77,9 @@ function TrackPage() {
                     currentStatusSetDate = "09/18/21"
                     />                     */}
                 <Switch>
-                    <Route path="/track-page/new-jobs">
-                        <SubTrackPage1 />
-                    </Route>
+                    {/* <Route path="/track-page/new-jobs"> */}
+                        {/* <SubTrackPage1 /> */}
+                    {/* </Route> */}
                     <Route>
                         <div className="col">
                             {totalJobs.data.sort((a, b) => {
