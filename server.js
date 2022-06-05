@@ -3,7 +3,6 @@ require('dotenv').config();
 const path = require("path");
 const express = require("express");
 const app = express();
-// const router = express.Router();
 //-------------------------------------------------
 const session = require("express-session"); 
 const passport = require("passport");
@@ -23,11 +22,8 @@ let today = new Date();
 let dd = String(today.getDate()).padStart(2, '0');
 let mm = String(today.getMonth() + 1).padStart(2, '0');
 let yyyy = today.getFullYear();
-console.log(today, mm, dd, yyyy);
 let todayWithDash = yyyy + "-" + mm + "-" + dd; 
-console.log(todayWithDash);
 let todayDate = new Date(todayWithDash);
-console.log(todayDate);
 
 const inactiveStatus = "Inactive"; 
 
@@ -46,8 +42,6 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(require("body-parser").json());
-
-//console.log(`mongodb+srv://admin-cindy:${process.env.DB_MONGOSH_PW}@clustertestjxt.wthnh.mongodb.net/jobAppsDB`);
 
 //LIVE AWS CLOUD STORAGE - mongoosh + mongoAtlas 
 // mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}); 
@@ -126,7 +120,6 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
     User.findOrCreate({ 
       googleId: profile.id, 
       username: profile._json.email,
@@ -193,7 +186,6 @@ app.get("/api", (req, res) => {
     res.json({ message: "JXT 2021" });
   });
 app.post("/create", (req, res) => {
-  console.log(req.body);
 
   const jobApp = new JobApp ({ //TODO: Create status history - make sure to change the data types of status to savedNotes to Array []!!
     companyName: req.body.companyName,
@@ -230,13 +222,10 @@ app.get("/findAll/status/new", (req, res) => {
     }else {
 
       for (let i = 0; i < foundNewJobs.length; i++) { //TODO: Refactor this code into a function - so it is reusable
-        console.log(foundNewJobs[i].statusDate);      //foundNewJobs, setActivePeriod, setActivePeriodText, newStatus, newLevelOfImp, newLevelOfImpOrderNum
         let enteredDate = new Date(foundNewJobs[i].statusDate); 
         let diffTime = Math.abs(todayDate - enteredDate);
         let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-        console.log(diffDays); 
         if (diffDays > 7) { 
-          console.log(`${"Not yet applied"} more than ${7} days - set status to inactive`);
 
           JobApp.findByIdAndUpdate(
             foundNewJobs[i]._id, 
@@ -248,14 +237,12 @@ app.get("/findAll/status/new", (req, res) => {
             {new: true},
             (err, updatedJobStatus) => {
               if (!err){
-                console.log("Successfully updated job status to: " + updatedJobStatus);
               }else {
                 res.send(err);
               }
             })
 
-        }else {
-          console.log("Not yet applied less than 7 days - no changes needed");
+        }else { //Not yet applied less than 7 days - no changes needed
         }   
       }
 
@@ -312,7 +299,6 @@ app.get("/findAll/status/inactive", (req, res) => {
 
 //PUT - Update the entire document since LevelOfImp is a new field 
 app.patch("/updateJobImp", (req, res) => {
-  //console.log(req.params);
   JobApp.findByIdAndUpdate(
     req.body._id, 
     {
