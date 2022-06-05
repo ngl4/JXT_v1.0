@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from "react";
 import './App.css';
-import InsertPage from "./components/DataInsert/InsertPage";
-import TrackPage from "./components/Dashboard/TrackPage";
-import SecretEnterPage from "./components/DataInsert/SecretEnterPage";
-import SecretTrackPage from "./components/Dashboard/SecretTrackPage";
-import Error401Page from "./components/Dashboard/Error401Page";
-import Navbar from "./components/UI/navbar";
+import InsertPage from "./pages/InsertPage/InsertPage";
+import TrackPage from "./pages/TrackPage/TrackPage";
+import SecretEnterPage from "./pages/InsertPage/auth_InsertPage/auth_InsertPage";
+import SecretTrackPage from "./pages/TrackPage/auth_TrackPage/auth_TrackPage";
+import Error401Page from "./pages/Error401Page/Error401Page";
+import Navbar from "./components/NavBar/navbar";
 import {
   BrowserRouter as Router,
   Switch,
