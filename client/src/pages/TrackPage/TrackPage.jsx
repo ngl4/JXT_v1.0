@@ -4,7 +4,6 @@ import {
     Route,
   } from "react-router-dom";
 import JobCard from "../../pages/TrackPage/JobCard/JobCard";
-// import SubTrackPage1 from "../TrackPage/(beta) SubTrackPage/SubTrackPage1";
 
 function TrackPage() {
     const [totalJobs, setTotalJobs] = useState({
@@ -57,11 +56,6 @@ function TrackPage() {
              {/* TODO: create link to each of these sections so users can access to different views */}
                 <div className="col-2 text-center">Total Jobs <br/><p>{totalJobs.count ? totalJobs.count : "0"}</p></div>
                 <div className="col-2 text-center">New<br/><p>{newJobs ? newJobs : "0"}</p></div>
-                {/* <div className="col-2 text-center"><a href="/track-page/new-jobs">New</a><br/><p>{newJobs ? newJobs : "0"}</p></div> */}
-                {/* <Router>
-                    <div className="col-2 text-center" onClick = {reloadPage}><Link to="/track-page/new-jobs">New</Link><br/><p>{newJobs ? newJobs : "0"}</p></div>
-                </Router> */}
-                {/* <div className="col-2 text-center">New<br/><p>{newJobs ? newJobs : "0"}</p></div>    */}
                 <div className="col-2 text-center">Applied <br/><p>{appliedJobs ? appliedJobs : "0"}</p></div>  
                 <div className="col-2 text-center">Phone Calls <br/><p>{phoneCalledJobs ? phoneCalledJobs : "0"}</p></div>  
                 <div className="col-2 text-center">Interviews <br/><p>{interviewedJobs ? interviewedJobs : "0"}</p></div>   
@@ -69,17 +63,7 @@ function TrackPage() {
             </div>    
             <div className="row d-flex justify-content-center">
                 {/* Sample Job Card */}
-                {/* <JobCard 
-                    companyName="Facebook" 
-                    jobURL = "https://www.facebook.com/careers/v2/jobs/2948019165525651/" 
-                    currentStatus = "New"
-                    currentStatusVerbiage = "Date to Apply"
-                    currentStatusSetDate = "09/18/21"
-                    />                     */}
                 <Switch>
-                    {/* <Route path="/track-page/new-jobs"> */}
-                        {/* <SubTrackPage1 /> */}
-                    {/* </Route> */}
                     <Route>
                         <div className="col">
                             {totalJobs.data.sort((a, b) => {
@@ -100,23 +84,6 @@ function TrackPage() {
                         </div>                       
                     </Route>
                 </Switch>   
-                {/* <div className="col">
-                {totalJobs.data.sort((a, b) => {
-                    return a.levelOfImpOrderNum - b.levelOfImpOrderNum;
-                }).map((job) => (
-                        <JobCard 
-                            key = {job._id}
-                            companyName = {job.companyName}
-                            jobURL = {job.jobURL}
-                            currentStatus = {job.status}
-                            currentStatusVerbiage = {job.statusVerbiage}
-                            currentStatusSetDate = {job.statusDate}
-                            jobAppId = {job._id}
-                            levelOfImportance = {job.levelOfImp}
-                            savedNotes = {job.savedNotes}
-                        />
-                    ))}
-                </div> */}
             </div>      
         </div>
     );

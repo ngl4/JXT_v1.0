@@ -87,9 +87,8 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                 statusDate: newStatusSetDate
             }) 
         }).then((res) => res.json())
-        .then((data) => { //uncomment if additional customization needed 
-            // console.log("SUCCESS", data.updatedJobAppStatus);
-        }); 
+        // .then((data) => { //uncomment if additional customization needed 
+        // }); 
     }
 
     const handleSaveNotes = () => {
@@ -103,16 +102,14 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                 savedNotes: notesOnChange
             }) 
         }).then((res) => res.json())
-        .then((data) => { //uncomment if additional customization needed 
-            // console.log("SUCCESS", data.foundSavedNotes);
-        }); 
+        // .then((data) => { //uncomment if additional customization needed 
+        // }); 
     }
 
     const [isOpen, setIsOpen] = useState(false);
 
     const showModal = (event) => {
         event.preventDefault();
-        console.log("click!");
         setIsOpen(true);
         if (savedNotes) {
             setNotesOnChange(savedNotes); 
@@ -145,7 +142,6 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                         </div>
                     </div>
                     <div className="card-text">
-                        {/* <a href={jobURL} target="_blank" rel="noopener noreferrer">{jobURL ? "Job Site Here" : null}</a> */}
                         <h6>Notes:</h6>
                         {savedNotes ? <p className="text-black-50 fw-light font-monospace"> {savedNotes.slice(0, 140)}{savedNotes.slice(0, 140).length === 140 ? <em>...see Details</em> : null} </p> : null}
                         <p>{currentStatus} <span className="text-black-50 fw-light font-monospace">- {currentStatusVerbiage}: {currentStatusSetDate}</span></p>
@@ -184,7 +180,6 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                                 </div>
                             </div>
                             {isLevelUpdated ? updateJobImp() : null}
-                            {/* <div className="col-2 d-flex flex-row-reverse"> */}
                             <Modal show={isOpen} size="xl" onHide={hideModal} scrollable="true" centered>
                                 <Modal.Header>
                                     <Modal.Title>{companyName}</Modal.Title>
@@ -201,7 +196,6 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
                                     <button onClick={hideModal}>Save</button>
                                 </Modal.Footer>
                             </Modal>
-                            {/* </div> */}
                         </div>
                     </div>
                 </div>

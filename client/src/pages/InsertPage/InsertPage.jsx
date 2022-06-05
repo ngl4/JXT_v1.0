@@ -27,12 +27,10 @@ function InsertPage() {
             case 'new':
                 if (checkNew) {
                     setCheckNew(false);
-                    //console.log("not checked");
                     setStatus("");
                     setDisable(false);
                 }else {
                     setCheckNew(true);
-                    //console.log("checked");
                     setStatus(value);
                     setStatusVerbiage("Date to Apply");
                     setDisable(true);
@@ -123,7 +121,6 @@ function InsertPage() {
             }) 
         }).then((res) => res.json())
         .then((data) => {
-            // console.log(data.message);
             setResponse({
                  verbiage: data.message,
                  textColor: "text-success"
@@ -172,19 +169,6 @@ function InsertPage() {
                     />   
                     </div>
                 </div>
-                {/* Input Job Title */}
-                {/* <div className = "row mb-3 d-flex justify-content-center">
-                    <label className="col-sm-2 col-form-label">Job Post URL</label>
-                    <div className="col-sm-2">
-                    <Input 
-                        name = "jobURL"
-                        type = "url"
-                        onChange = {handleChange}
-                        placeholder = "Enter URL"
-                        value = {jobURL}
-                    />   
-                    </div>
-                </div>                 */}
                 {/*Checkbox Status - New, Applied, Phone-Called, Interviewed */}
                 <div className = "column mt-4 mb-4 d-flex justify-content-center">
                     <div className="form-check form-check-inline">

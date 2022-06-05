@@ -27,12 +27,10 @@ function SecretEnterPage() {
             case 'new':
                 if (checkNew) {
                     setCheckNew(false);
-                    //console.log("not checked");
                     setStatus("");
                     setDisable(false);
                 }else {
                     setCheckNew(true);
-                    //console.log("checked");
                     setStatus(value);
                     setStatusVerbiage("Date to Apply");
                     setDisable(true);
@@ -123,7 +121,6 @@ function SecretEnterPage() {
             }) 
         }).then((res) => res.json())
         .then((data) => {
-            // console.log(data.message);
             setResponse({
                  verbiage: data.message,
                  textColor: "text-success"
@@ -145,11 +142,6 @@ function SecretEnterPage() {
     return(
         <div className="container">
             <div className="mt-5 pt-3">
-                {/* <strong>UNDER DEVELOPMENT [TESTING ONLY]</strong> 
-                <br />
-                YOU ARE LOG IN NOW! CLICK ON SIGN ON AND YOU SHOULD SEE A LOGOUT BUTTON TO LOG OUT! 
-                <br /> */}
-
                 <form onSubmit={handleSubmit}>
                 {/* Input Company Name */}
                 <div className = "row mb-3 d-flex justify-content-center">
