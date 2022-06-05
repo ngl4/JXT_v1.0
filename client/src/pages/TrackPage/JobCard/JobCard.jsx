@@ -110,7 +110,6 @@ function JobCard({jobAppId, companyName, jobURL, levelOfImportance, currentStatu
 
     const showModal = (event) => {
         event.preventDefault();
-        console.log("click!");
         setIsOpen(true);
         if (savedNotes) {
             setNotesOnChange(savedNotes); 

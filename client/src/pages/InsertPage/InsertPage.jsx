@@ -27,12 +27,10 @@ function InsertPage() {
             case 'new':
                 if (checkNew) {
                     setCheckNew(false);
-                    //console.log("not checked");
                     setStatus("");
                     setDisable(false);
                 }else {
                     setCheckNew(true);
-                    //console.log("checked");
                     setStatus(value);
                     setStatusVerbiage("Date to Apply");
                     setDisable(true);
@@ -123,7 +121,6 @@ function InsertPage() {
             }) 
         }).then((res) => res.json())
         .then((data) => {
-            // console.log(data.message);
             setResponse({
                  verbiage: data.message,
                  textColor: "text-success"

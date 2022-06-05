@@ -11,7 +11,6 @@ function Navbar({RouterLinkHome, RouterLinkEnter, RouterLinkTrack}) {
 
     const showModal = (event) => {
         event.preventDefault();
-        console.log("click!");
         setIsOpen(true);
     };
   
