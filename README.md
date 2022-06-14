@@ -4,9 +4,9 @@ Job Search &amp; Tracked Management Version 1.0
 
 Deployed Site: https://jxt-app-v1.herokuapp.com/
 
-## The Pain Points (Small Scale Market Resrach in the Tech Career Growth Community)
+## The Pain Points
 
-When I started working on this project, thanks to Alex Chiou's suggestion, I have conduced a market research to see how are people applying for jobs, from students, bootcampers, career changers, early career professionals, and experienced software engineers. There are around 50 individuals who have filled out the survey.
+When I started working on this project, thanks to Alex Chiou's suggestion, I have conduced a market research to see how are people applying for jobs, from students, bootcampers, career changers, early career professionals, and experienced software engineers. There are around 50 individuals who have filled out the survey in the Tech Career Growth Community.
 
 > 77.6% of these individuals have felt struggled, frustrated and lost motivation in keeping track of their job search/applications
 
