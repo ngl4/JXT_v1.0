@@ -10,13 +10,13 @@ When I started working on this project, thanks to Alex Chiou's suggestion, I hav
 
 > 77.6% of these individuals have felt struggled, frustrated and lost motivation in keeping track of their job search/applications
 
-Here are the top 5 common pain points regarding job tracking based on the research:
+Here are the `top 5 common pain points` regarding job applications tracking based on the research:
 
-- Time consuming when physically write/enter the data one at a time for each job
-- Forgetting the tiny details, ie, follow-up with job apps, recruiters, send thank-you notes, etc.
-- Lack of motivation to keep tracking overtime
-- Lengthy list of jobs can be hard to read and focus
-- Not sure how to start tracking
+- `Time consuming` when physically write/enter the data one at a time for each job
+- `Forgetting the tiny details`, ie, follow-up with job apps, recruiters, send thank-you notes, etc.
+- `Lack of motivation` to keep tracking overtime
+- `Lengthy list` of jobs can be hard to read and focus
+- `Not sure how to start tracking`
 
 ## The MVP Project Goals
 
