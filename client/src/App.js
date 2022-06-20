@@ -9,13 +9,26 @@ import Navbar from "./components/NavBar/navbar";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState({
+    isLoggedIn: false,
+    fullname: "",
+    firstname: "",
+    username: "",
+    profileImgUrl: "",
+  });
 
   useEffect(() => {
     fetch("/secret")
       .then((res) => res.json())
       .then((data) => {
-        setData(data.success);
+        setData({
+          isLoggedIn: data.success,
+          fullname: data.user.fullname,
+          firstname: data.user.firstname,
+          username: data.user.username,
+          profileImgUrl: data.user.profileImgUrl,
+        });
+        console.log(data);
       });
   }, []);
 
@@ -46,7 +59,7 @@ function App() {
                 </Link>
               }
               RouterLinkTrack={
-                data !== true ? (
+                !data.isLoggedIn ? (
                   <Link to="/track-page" style={linkStyle}>
                     Track
                   </Link>
@@ -56,6 +69,11 @@ function App() {
                   </Link>
                 )
               }
+              isLoggedIn={data.isLoggedIn}
+              fullname={data.fullname}
+              firstname={data.firstname}
+              username={data.username}
+              profileImgUrl={data.profileImgUrl}
             />
             <Switch>
               <body className="row d-flex justify-content-center align-items-center mt-5">
@@ -63,13 +81,13 @@ function App() {
                   <TrackPage />
                 </Route>
                 <Route path="/enter-page">
-                  {data !== true ? <InsertPage /> : <SecretEnterPage />}
+                  {!data.isLoggedIn ? <InsertPage /> : <SecretEnterPage />}
                 </Route>
                 <Route path="/track-page" onClick={reloadPage}>
                   <TrackPage />
                 </Route>
                 <Route path="/secret-page">
-                  {data !== true ? <Error401Page /> : <SecretTrackPage />}
+                  {!data.isLoggedIn ? <Error401Page /> : <SecretTrackPage />}
                 </Route>
               </body>
             </Switch>
@@ -78,7 +96,7 @@ function App() {
       </header>
       <footer className="fixed-bottom">
         <p className="cpText text-center mt-5">
-          {data !== true ? null : "User Authenticated!"}
+          {!data.isLoggedIn ? null : "User Authenticated!"}
         </p>
       </footer>
     </div>
