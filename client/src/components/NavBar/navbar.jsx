@@ -1,7 +1,16 @@
 import { React, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
-function Navbar({ RouterLinkHome, RouterLinkEnter, RouterLinkTrack }) {
+function Navbar({
+  RouterLinkHome,
+  RouterLinkEnter,
+  RouterLinkTrack,
+  isLoggedIn,
+  firstname,
+  fullname,
+  username,
+  profileImgUrl,
+}) {
   const googleBackgroundStyle = {
     "background-color": "#dd4b39",
   };
@@ -68,13 +77,22 @@ function Navbar({ RouterLinkHome, RouterLinkEnter, RouterLinkTrack }) {
             </li>
           </ul>
           <form className="d-flex">
-            <button
-              className="btn btn-outline-success mx-4"
-              type="submit"
-              onClick={showModal}
-            >
-              Sign On
-            </button>
+            {isLoggedIn ? (
+              <button
+                className="btn btn-outline-success mx-4"
+                onClick={showModal}
+              >
+                {firstname}
+              </button>
+            ) : (
+              <button
+                className="btn btn-outline-success mx-4"
+                type="submit"
+                onClick={showModal}
+              >
+                Sign in
+              </button>
+            )}
             <Modal
               show={isOpen}
               size="xl"
@@ -83,25 +101,44 @@ function Navbar({ RouterLinkHome, RouterLinkEnter, RouterLinkTrack }) {
               centered
             >
               <Modal.Header>
-                <Modal.Title>Log in or sign up</Modal.Title>
+                <Modal.Title>
+                  {isLoggedIn ? "Account Profile" : "Sign in"}
+                </Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 {/* Use this icon link https://ionic.io/ionicons to insert the Google logo Icon next to the sign in text */}
                 <div className="card social-block">
                   <div className="card-body d-flex flex-row justify-content-center">
-                    <button
-                      onClick={handleSignInGoogle}
-                      className="btn btn-block btn-social btn-google"
-                      style={googleBackgroundStyle}
-                    >
-                      <span className="fa fa-google"></span> Sign in with google
-                    </button>
+                    {isLoggedIn ? (
+                      <>
+                        <div>
+                          <img src={profileImgUrl} alt="profile"></img>
+                          <h3>{fullname}</h3>
+                          <p>{username}</p>
+                        </div>
+                      </>
+                    ) : (
+                      <button
+                        onClick={handleSignInGoogle}
+                        className="btn btn-block btn-social btn-google"
+                        style={googleBackgroundStyle}
+                      >
+                        <span className="fa fa-google"></span> Sign in with
+                        google
+                      </button>
+                    )}
                   </div>
                 </div>
               </Modal.Body>
               <Modal.Footer>
-                <button onClick={handleLogOutGoogle}>Log Out</button>
-                <button onClick={hideModal}>close</button>
+                {isLoggedIn ? (
+                  <>
+                    <button onClick={handleLogOutGoogle}>Sign Out</button>
+                    <button onClick={hideModal}>close</button>
+                  </>
+                ) : (
+                  <button onClick={hideModal}>close</button>
+                )}
               </Modal.Footer>
             </Modal>
           </form>
