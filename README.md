@@ -18,11 +18,14 @@ Here are the `top 5 common pain points` regarding job applications tracking base
 - `Lengthy list` of jobs can be hard to read and focus
 - `Not sure how to start tracking`
 
+<!-- 
 ## The MVP Project Goals
 
 ## The Engineering Decisions
 
 ## Demo
+
+ -->
 
 <!-- PERSONAL NOTE -->
 <!-- Please remember to update your "build" folder so your deployed app is up-to-dated!!! -->
