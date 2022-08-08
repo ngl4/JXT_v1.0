@@ -163,7 +163,7 @@ function SecretEnterPage() {
           </div>
           {/* Input Job Title */}
           <div className="row mb-3 d-flex justify-content-center">
-            <label className="col-sm-2 col-form-label">Job Title</label>
+            <label className="col-6 col-form-label text-end">Job Title</label>
             <div className="col-sm-2">
               <Input
                 name="jobTitle"
