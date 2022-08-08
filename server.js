@@ -137,19 +137,40 @@ passport.use(
       // callbackURL: "http://localhost:3001/auth/google/jxt", //(Local)
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
-    function (accessToken, refreshToken, profile, cb) {
-      User.findOrCreate(
-        {
-          googleId: profile.id,
-          username: profile._json.email,
-          fullname: profile._json.name,
-          firstname: profile._json.given_name,
-          profileImgUrl: profile._json.picture,
-        },
-        function (err, user) {
-          return cb(err, user);
+    async function (accessToken, refreshToken, profile, cb) {
+      //reference: https://dev.to/atultyagi612/google-authentication-in-nodejs-1f1d
+      const newUser = {
+        googleId: profile.id,
+        username: profile.emails[0].value,
+        fullname: profile._json.name,
+        firstname: profile._json.given_name,
+        profileImgUrl: profile.photos[0].value,
+      };
+      try {
+        let user = await User.findOne({ googleId: profile.id });
+
+        if (user) {
+          cb(null, user);
+        } else {
+          user = await User.create(newUser);
+          cb(null, user);
         }
-      );
+      } catch (err) {
+        console.log(err);
+      }
+
+      // User.findOrCreate( //using plugin "mongoose-findorcreate" npm
+      //   {
+      //     googleId: profile.id,
+      //     username: profile.emails[0].value,
+      //     fullname: profile._json.name,
+      //     firstname: profile._json.given_name,
+      //     profileImgUrl: profile.photos[0].value,
+      //   },
+      //   function (err, user) {
+      //     return cb(err, user);
+      //   }
+      // );
     }
   )
 );
@@ -189,7 +210,8 @@ app.get("/auth/logout", function (req, res) {
     req.logout();
     res.redirect(CLIENT_HOME_PAGE_URL);
   } else {
-    res.send("user is already logged out!");
+    res.redirect(CLIENT_HOME_PAGE_URL);
+    // res.send("user is already logged out!");
   }
 });
 //-------------------------------------------------
