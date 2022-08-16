@@ -1,6 +1,8 @@
 # JXT_v1.0
 
-Job Search &amp; Tracked Management Version 1.0
+Job Tracked Management Version 1.0
+
+<!-- Search &amp; -->
 
 Deployed Site: https://jxt-app-v1.herokuapp.com/
 
@@ -18,7 +20,7 @@ Here are the `top 5 common pain points` regarding job applications tracking base
 - `Lengthy list` of jobs can be hard to read and focus
 - `Not sure how to start tracking`
 
-<!-- 
+<!--
 ## The MVP Project Goals
 
 ## The Engineering Decisions
