@@ -5,10 +5,8 @@ function SecretTrackPage() {
   return (
     <div className="container">
       <div className="mt-5 pt-3">
-        <strong>UNDER DEVELOPMENT [TESTING ONLY]</strong>
-        <br />
         YOU ARE LOG IN NOW! CLICK ON SIGN ON AND YOU SHOULD SEE A LOGOUT BUTTON
-        TO LOG OUT!
+        TO LOG OUT! THE SITE IS CURRENTLY UNDER DEVELOPMENT [TESTING ONLY]
         <br />
         <br />
         <JobCardv2 />
